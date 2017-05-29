@@ -1,0 +1,346 @@
+% XeLaTeX can use any Mac OS X font. See the setromanfont command below.
+% Input to XeLaTeX is full Unicode, so Unicode characters can be typed directly into the source.
+
+% The next lines tell TeXShop to typeset with xelatex, and to open and save the source with Unicode encoding.
+
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+
+\documentclass[a4paper,14pt]{extarticle}
+\usepackage{geometry}
+\geometry{a4paper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+\setlength{\parindent}{15mm}
+%\renewcommand{\baselinestretch}{1.5}
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb, amsthm}
+\newtheorem{proposal}{Предложение}
+\newtheorem{theorem}{Теорема}
+\newtheorem{lemma}{Лемма}
+\newtheorem{theorem_alt}{Теорема (альтернативная формулировка)}
+\newtheorem{consequence}{Следствие}
+%\usepackage{mathptmx}
+%\usepackage[utf8]{inputenc}
+\usepackage{fontspec,,xltxtra,xunicode}
+\usepackage{tocloft}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+%\defaultfontfeatures{Ligatures=TeX}
+
+\defaultfontfeatures{Mapping=tex-text}
+\setmainfont{CMU Serif}
+\setsansfont{CMU Sans Serif}
+\setmonofont{CMU Typewriter Text}
+
+\usepackage[english, russian]{babel}
+\newcommand{\sectionbreak}{\clearpage}
+\usepackage{lipsum}
+\usepackage{titlesec}
+\usepackage{indentfirst}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{titlesec}
+\titleformat*{\section}{\Large\bfseries\centering}
+\titleformat*{\subsection}{\large\bfseries\centering}
+
+% Will Robertson's fontspec.sty can be used to simplify font choices.
+% To experiment, open /Applications/Font Book to examine the fonts provided on Mac OS X,
+% and change "Hoefler Text" to any of these choices.
+%\setromanfont[Mapping=tex-text]{Times New Roman}
+%\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Gill Sans}
+%\setmonofont[Scale=MatchLowercase]{Courier New}
+
+%\title{Brief Article}
+%\author{The Author}
+\date{}                                           % Activate to display a given date or no date
+
+\begin{document}
+\begin{titlepage}
+
+\thispagestyle{empty}
+\newgeometry{margin=2cm}
+\center 
+\textsc{МИНОБРНАУКИ РОССИИ}\\
+\textsc{ФЕДЕРАЛЬНОЕ ГОСУДАРСТВЕННОЕ БЮДЖЕТНОЕ ОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ ВЫСШЕГО ОБРАЗОВАНИЯ <<ВОРОНЕЖСКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ>>}
+
+\vspace{0.3cm}
+
+\textrm{Факультет компьютерных наук}\\
+\textrm{Кафедра цифровых технологий}
+
+\vspace{1cm}
+
+\textbf{Исследование симметрий алгебраических уравнений}\\
+
+\vspace{1cm}
+
+\textrm{ВКР Бакалаврская работа}\\
+\textrm{02.03.01 Математика и компьютерные науки}\\
+\textrm{Распределенные системы и искусственный интеллект}\\
+
+\vfill
+\begin{flushleft}
+\textrm{Допущено к защите в ГЭК \rule[0mm]{5mm}{0,3mm} . \rule[0mm]{2cm}{0,3mm} . 2017 г.}
+\end{flushleft}
+\begin{tabbing}
+ооооооооооооооо	\=	----------------------	\kill
+Зав. кафедрой	\> 	\rule[0mm]{5cm}{0,3mm}	\textit{С.Д. Кургалин, д. ф.-м. н., профессор}  \\
+Обучающийся 	\> 	\rule[0mm]{5cm}{0,3mm}	\textit{Е.Ю. Морозов, 4 курс, д/о} \\ 
+ооооооооооооооо	\=	----------------------	\kill
+Руководитель	\> 	\rule[0mm]{5cm}{0,3mm}  \textit{А.В. Лобода, д. ф.-м. н., профессор}
+\end{tabbing}
+
+\vfill
+
+\centerline{Воронеж, 2017}
+\clearpage
+\end{titlepage}
+%% ЗАДАНИЕ НА ВЫПОЛНЕНИЕ
+\newpage\thispagestyle{empty}
+\addtocounter{page}{1}
+\newgeometry{margin=2cm}
+\begin{spacing}{1.2}
+{
+\begin{center}
+{\small МИНОБРНАУКИ РОССИИ}\\  \!  \!  \! 
+{\small \textbf{ФЕДЕРАЛЬНОЕ ГОСУДАРСТВЕННОЕ БЮДЖЕТНОЕ}}\\ \!  \!  \!  
+{\small \textbf{ОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ}}\\ \!  \! 
+{\small  \textbf{ВЫСШЕГО ОБРАЗОВАНИЯ}\\ \!  \! 
+\textbf{''ВОРОНЕЖСКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ''}\\ \!  \! 
+Факультет компьютерных наук\\  \!  \! \!
+$~$Кафедра цифровых технологий}\\
+\vspace{0.1cm}
+\end{center}
+\begin{flushright} \!  \!  \! \! 
+{\small \textbf{УТВЕРЖДАЮ}\\
+заведующий кафедрой\\
+ $\underset{\text{\emph{подпись}}}{\underline{\hspace{0.15\textwidth}}}$ $\underset{\text{\emph{расшифровка подписи}}}{\underline{\hspace{0.3\textwidth}}}$}
+\end{flushright}
+\begin{center}
+{\small \textbf{ЗАДАНИЕ \\
+НА ВЫПОЛНЕНИЕ ВЫПУСКНОЙ КВАЛИФИКАЦИОННОЙ РАБОТЫ\\
+ОБУЧАЮЩЕГОСЯ} $\underset{\text{\emph{фамилия, имя, отчество}}}{\underline{\hspace{0.69\textwidth}}}$}
+\end{center}\! \! \! 
+\vspace{0.1cm}
+{\small 1. Тема работы \underline{\phantom{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa}}, утверждена решением ученого совета \underline{\phantom{aaaaaaaaaaaaaaaaaaaaaaa}} факультета от \underline{\phantom{aaa}}.\underline{\phantom{aaa}}.20\underline{\phantom{aaa}}\\ 
+2. { Направление подготовки $\underset{\text{\emph{шифр, наименование}}}{\underline{\hspace{0.67\textwidth}}}$\\
+3. Срок сдачи студентом законченной работы \underline{\phantom{aaa}}.\underline{\phantom{aaa}}.20\underline{\phantom{aaa}}\\
+4. Календарный план:}\\  
+\begin{tabular}[t]{|p{3em}|p{20em}|p{13em}|}
+\hline
+{\small	№} & {\small	Задание} & {\small Срок выполнения }\\
+\hline
+	{\small	$1$} & {} & {} \\
+\hline
+	{\small	$2$} & {} & {} \\
+\hline 
+	{\small	$3$} &{} & {} \\
+\hline
+	{\small	$4$} &{} & {} \\
+\hline
+	{\small	$5$} &{} & {} \\
+\hline
+	{\small	$6$} &{} & {} \\
+\hline
+\end{tabular}\! \! \! \!
+\begin{flushleft}
+\vspace{0.4cm}
+{\small
+Обучающийся $~~~~~~~~\underset{\text{\emph{подпись}}}{\underline{\hspace{0.2\textwidth}}}$ $\underset{\text{\emph{расшифровка подписи}}}{\underline{\hspace{0.4\textwidth}}}$\\
+\vspace{0.4cm}
+Руководитель $~~~~~~~~\underset{\text{\emph{подпись}}}{\underline{\hspace{0.2\textwidth}}}$ $\underset{\text{\emph{расшифровка подписи}}}{\underline{\hspace{0.4\textwidth}}}$}
+\end{flushleft}\! \! \! \! \! \! \! \!
+\begin{flushleft}
+\underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}}
+\underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} \underline{\phantom{a}} 
+\end{flushleft}\! \! \! \!
+{\small
+Выпускная квалификационная работа представлена на кафедру \underline{\phantom{aaa}}.\underline{\phantom{aaa}}.20\underline{\phantom{aaa}}\\
+Рецензент $\underset{\text{\emph{должность, ученая степень, ученое звание}}}{\underline{\hspace{0.9\textwidth}}}$\\
+Выпускная квалификационная работа на тему {\underline{\hspace{0.5\textwidth}}}\\
+{\underline{\hspace{1\textwidth}}}\\
+допущена к защите в ГЭК \underline{\phantom{aaa}}.\underline{\phantom{aaa}}.20\underline{\phantom{aaa}}\\
+Заведующий кафедрой $\underset{\text{\emph{подпись, расшифровка подписи}}}{\underline{\hspace{0.4\textwidth}}}$  \underline{\phantom{aaa}}.\underline{\phantom{aaa}}.20\underline{\phantom{aaa}}\\
+}
+}}
+\end{spacing}
+
+%% РЕФЕРАТ
+\newpage\thispagestyle{empty}
+\begin{center}
+РЕФЕРАТ
+\end{center}
+
+\begin{flushleft}
+Бакалаврская работа  с.,  источника,  приложения\\
+\vspace{0.5cm}
+
+\vspace{0.5cm}
+Объект исследования "--- \\
+\vspace{0.5cm}
+Цель работы "--- \\
+\vspace{0.5cm}
+Метод исследования и аппаратура "---\\
+\vspace{0.5cm}
+
+Полученные результаты и их новизна "---\\
+\vspace{0.5cm}
+Область применения "---\\
+\vspace{0.5cm}
+Прогнозные предположения о развитии объекта исследования "---.
+\end{flushleft}
+
+\normalsize
+\newgeometry{top=15mm, left=30mm, right=15mm, bottom=20mm}
+\tableofcontents
+%\maketitle
+
+% For many users, the previous commands will be enough.
+% If you want to directly input Unicode, add an Input Menu or Keyboard to the menu bar 
+% using the International Panel in System Preferences.
+% Unicode must be typeset using a font containing the appropriate characters.
+% Remove the comment signs below for examples.
+
+% \newfontfamily{\A}{Geeza Pro}
+% \newfontfamily{\H}[Scale=0.9]{Lucida Grande}
+% \newfontfamily{\J}[Scale=0.85]{Osaka}
+
+% Here are some multilingual Unicode fonts: this is Arabic text: {\A السلام عليكم}, this is Hebrew: {\H שלום}, 
+% and here's some Japanese: {\J 今日は}.
+
+%% ВВЕДЕНИЕ
+\addcontentsline{toc}{section}{Введение}
+\section*{\centering Введение}
+В данной работе рассматривается задача, связанная с описанием симметрий вещественных гиперповерхностей многомерных комплексных пространств.
+
+Симметричные множества представляли интерес в математике со времен зарождения этой науки. Для подтверждения этого, достаточно вспомнить, что в геометрии Евклида важное место занимали правильные треугольники и четырехугольники (квадраты), а так же окружности. 
+
+И квадрат, и окружность являются симметричными множествами. Однако, окружность <<устроена одинаково>> в каждой своей своей точке, в то время как квадрат имеет вершины и точки, которые не являются симметричными.
+
+Помимо тел на плоскости, в ранней геометрии также изучались симметричные тела в трехмерном пространстве. Так, уже древним грекам были известны описания всех правильных многогранников "--- <<платоновых тел>> "--- тетраэдра, октаэдра, гексаэдра (куба), икосаэдра и додекаэдра. Также был известен тот факт, что список этих тел полон и что не существует, к примеру, правильного 115-гранника. Однако, строгое доказательство этого факта не является тривиальным и требует определенной математической сноровки.
+
+Во второй половине XIX века различные симметрии математических объектов стали изучаться на качественно новом уровне строгости. Связано это было с изучением теории групп и, в частности, с развитием теории непрерывных групп. В связи с этим можно упомянуть работы Ф. Клейна, и, например его труд <<Лекции об икосаэдре и решении уравнений пятой степени>>.
+
+Непрерывные группы (преобразований) получили наибольшую завершенность в работах норвежского математика Софуса Ли, например, в его фундаментальном труде <<Теория групп преобразований>>. Непрерывные группы преобразований в идеальной их форме получили название <<группы Ли>> и именно в терминах этих групп производятся современные исследования симметрий различных математических объектов.
+
+Начиная с середины XX века, активно начинают исследоваться симметрии различных 
+
+В данной работе изучаются симметрии одного семейства квадро-кубических вещественных гиперповерхностей в пространстве $\mathbb{C}^3$. Главной задачей является исследование групп аффинных преобразований, сохраняющих каждую поверхность из данного семейства и их размерностей. 
+
+Семейство поверхностей, рассматриваемое в данной задаче, является одним из объектов исследования в связи с задачей об аффинной однородности вещественных многообразий в трехмерном комплексном пространстве. 
+
+Для поверхности $M$ из указанного семейства все рассмотрения будут производиться вблизи начала координат. Выбор этой точки обусловлен простотой и не ведет к потере общности рассуждений.
+
+% В пространстве $\mathbb{C}^3$ действие группы $G$ можно задать в виде
+
+%%%
+%%% ОСНОВНАЯ ЧАСТЬ
+%%%
+
+%%% ПОСТАНОВКА ЗАДАЧИ
+\section{Постановка задачи}
+Пусть дано семейство вещественных квадро-кубических гиперповерхностей в трехмерном комплексном пространстве:
+\begin{equation}\label{eq:initial}
+v x_2 = Q(x_1, y_1, x_2, y_2) + x_2 (\mu x_2^2 + \nu y_2^2),
+\end{equation}
+где $x_1 = \Re(z_1)$, $y_1 = \Im(z_1)$, $x_2 = \Re(z_2)$, $y_2 = \Im(z_2)$, $u = \Re(w)$, $v= \Im(w)$ "--- компоненты координат в трехмерном комплексном пространстве, $\mu$, $\nu$ "--- некоторые вещественные параметры, одновременно не равные нулю, а $Q(x_1, y_1, x_2, y_2)$ "--- некоторая квадратичная форма. 
+%%% ТЕОРЕТИЧЕСКАЯ ЧАСТЬ
+\section{Симметрии в трехмерном комплексном пространстве}
+\lipsum[5]
+\subsection{Группы Ли аффинных преобразований}
+\lipsum[7]
+\subsection{Инфинитезимальные преобразования}
+\lipsum[8]
+
+%%% ОПИСАНИЕ ПРОГРАММЫ
+
+%%% ЭКСПЕРИМЕНТАЛЬНАЯ ЧАСТЬ
+\section{Определение размерности групп аффинных преобразований}
+В данном разделе будет описана процедура определения размерностей групп аффинных преобразований для семейства поверхностей~(\ref{eq:initial}).
+\subsection{Общая схема}
+Пусть дана некоторая вещественная гиперповерхность $M$ из семейства~(\ref{eq:initial}) с определяющей функцией $$\Phi(x_1, x_2, y_1, y_2, v) = v x_2 - Q(x_1, y_1, x_2, y_2) - x_2 (\mu x_2^2 + \nu y_2^2).$$ В таком случае, обозначим через $F_t$ однопараметрическую группу Ли аффинных преобразований, сохраняющих эту поверхность. Пусть также эта группа содержит тождественное преобразование при $t = 0$, т.е. $F_0 = \textrm{Id}$. Тогда уравнения, определяющие эту группу будут иметь вид:
+\begin{equation}
+z_i = A_{i}(t) z_1 + B_{i}(t) z_2 + C_{i}(t) z_3 + S_i(t),\ i = 1, \hdots, 3,
+\end{equation}
+где $A_{i,j}(t)$ и $S_i(t)$ "--- некоторые аналитические комплексные функции от вещественного аргумента, а $z_3 = w = u + i v$. Аналитичность функций возможна, так как на группа $F_t$ является группой Ли.
+
+Под действием группы $F_t$ определяющая функция примет следующий вид:
+\begin{align*}
+F_t(\Phi) &= 1
+\end{align*}
+
+\subsection{Произвольная поверхность}
+В общем случае, квадратичную форму $Q(x_1, y_1, x_2, y_2)$ можно записать в явном виде: 
+\begin{align*}
+Q(x_1, y_1, x_2, y_2) &= k_1 x_1^2 + k_2 x_2 x_1 + k_3 x_2^2 + k_4 x_1 y_1 + k_5 x_2 y_1 \\
+&+ k_6 y_1^2 + k_7 x_1 y_2 + k_8 x_2 y_2 + k_9 y_1 y_2 + k_{10} y_2^2
+\end{align*}
+
+Применяя метод, указанный в предыдущем пункте, получим линейную однородную систему из 83 уравнений относительно 24 неизвестных, причем переменная $\sigma_{3,1}$ является <<фиктивной>> "--- в связи с тем, что   Наиболее простые уравнения в системе имеют вид
+\begin{equation}
+\begin{array}{l}
+ k_1 \beta _{3,2}=0 \\
+ k_1 \beta _{3,1}=0 \\
+ k_1 \sigma _{2,1}=0 \\
+ k_4 \beta _{3,1}=0 \\
+ k_4 \sigma _{2,1}=0 \\
+ k_7 \beta _{3,1}=0 \\
+ k_7 \sigma _{2,1}=0 \\
+ k_6 \beta _{3,1}=0 \\
+ k_6 \sigma _{2,1}=0 \\
+ k_9 \beta _{3,1}=0 \\
+ k_9 \sigma _{2,1}=0 \\
+ k_6 \beta _{3,2}=0 \\
+ k_{10} \beta _{3,2}=0 \\
+\end{array}
+\end{equation}
+Отсюда можно выделить два случая:
+\begin{enumerate}
+	\item Все $k_j$ равны нулю: $k_1 = k_4 = k_6 = k_7 = k_9 = k_{10} = 0$.
+	\item Хотя бы один $k_j$ из указанного набора не равен нулю.
+\end{enumerate}
+В первом случае поверхность приобретает следующий вид:
+\begin{equation*}
+v x_2 = k_2 x_2 x_1 + k_3 x_2^2 + k_5 x_2 y_1 + k_8 x_2 y_2 + x_2 (\mu x_2^2 + \nu y_2^2).
+\end{equation*}
+Легко видеть, что данное уравнение можно поделить на $x_2$, что в итоге даст новую поверхность, которая является квадрикой. Рассмотрение поверхностей данного типа не представляет интереса в данной работе, поэтому можно сразу перейти к рассмотрению второго случая.
+
+Предположим, что $k_1 \ne 0 $. В таком случае, приведем элементарными преобразованиями матрицу системы $W$ к ступенчатому виду. 
+
+Исходя их этих соображений можно сформулировать следующую теорему: 
+\begin{theorem} Размерность группы Ли аффинных преобразований, сохраняющих любую поверхность из семейства~(\ref{eq:initial}), удовлетворяет неравенству $1 \le \dim G \le 5$, и каждая из размерностей достижима.
+\end{theorem}
+
+\subsection{Частный случай семейства}
+В связи со сложностью рассмотрения общего случая, был рассмотрен частный случай семейства поверхностей~(\ref{eq:initial}), в котором квадратичная форма $Q$ не зависит от переменных $x_2$ и $y_2$. В таком случае, семейство может быть описано следующим образом:
+\begin{equation}\label{eq:special}
+v x_2 = k_1 x_1^2 + k_2 x_1 y_1 + k_3 x_2^2 + x_2 (\mu x_2^2 + \nu y_2^2),
+\end{equation}
+
+Следует заметить, что за счёт применения невырожденных аффинных преобразований, можно фактически сократить число параметров $k_1, k_2$ и $k_3$ до одного.
+
+В результате применения описанного метода, получается однородная линейная система из 57 уравнений относительно 24 неизвестных.
+
+\begin{theorem} размерность группы Ли аффинных преобразований, сохраняющих любую поверхность вида~(\ref{eq:special}), удовлетворяет неравенствам$3 \le \dim G \le 5$, причем
+\begin{itemize}
+	\item $\dim G$ = 3 достигается на поверхностях вида
+	\begin{equation}\label{eq:special_3}
+		v x_2 = k x_1^2 + y_1^2 + x_2 (\mu x_2^2 + \nu y_2^2),\ k \ne 0, \ k \ne 1;
+	\end{equation}
+	\item $\dim G$ = 4 достигается на поверхностях вида
+	\begin{equation}\label{eq:special_4}
+		v x_2 = |z_1|^2 + x_2 (\mu x_2^2 + \nu y_2^2);
+	\end{equation}
+		\item $\dim G$ = 5 достигается на аффинно-однородных поверхностях следующего вида
+	\begin{equation}\label{eq:special_5}
+		v x_2 = x_1^2 + x_2 (\mu x_2^2 + \nu y_2^2).
+	\end{equation}
+\end{itemize}
+\end{theorem}
+
+
+%%% ЗАКЛЮЧЕНИЕ
+\addcontentsline{toc}{section}{Заключение}
+\section*{\centering Заключение}
+\lipsum[12-13]
+\end{document}  
