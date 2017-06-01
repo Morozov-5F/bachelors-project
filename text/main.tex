@@ -15,7 +15,7 @@
 %\renewcommand{\baselinestretch}{1.5}
 %\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
 \usepackage{graphicx}
-\usepackage{amsmath, amssymb, amsthm}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
 \newtheorem{proposal}{Предложение}
 \newtheorem{theorem}{Теорема}
 \newtheorem{lemma}{Лемма}
@@ -59,6 +59,8 @@
 ]{biblatex}
 \addbibresource{../bib_files/bibliography.bib}
 
+%\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+%\newcommand{\RN}[1]{\textup{\uppercase\expandafter{\romannumeral#1}}}
 % Will Robertson's fontspec.sty can be used to simplify font choices.
 % To experiment, open /Applications/Font Book to examine the fonts provided on Mac OS X,
 % and change "Hoefler Text" to any of these choices.
@@ -91,6 +93,7 @@
 \vspace{1cm}
 
 \textrm{ВКР Бакалаврская работа}\\
+%\textrm{Отчёт о преддипломной практике}\\
 \textrm{02.03.01 Математика и компьютерные науки}\\
 \textrm{Распределенные системы и искусственный интеллект}\\
 
@@ -271,12 +274,28 @@ $~$Кафедра цифровых технологий}\\
 \begin{equation}\label{eq:initial}
 v x_2 = Q(x_1, y_1, x_2, y_2) + x_2 (\mu x_2^2 + \nu y_2^2),
 \end{equation}
-где $x_1 = \Re(z_1)$, $y_1 = \Im(z_1)$, $x_2 = \Re(z_2)$, $y_2 = \Im(z_2)$, $u = \Re(w)$, $v= \Im(w)$ "--- компоненты координат в трехмерном комплексном пространстве, $\mu$, $\nu$ "--- некоторые вещественные параметры, одновременно не равные нулю, а $Q(x_1, y_1, x_2, y_2)$ "--- некоторая квадратичная форма. 
+где $x_1 = \Re(z_1)$, $y_1 = \Im(z_1)$, $x_2 = \Re(z_2)$, $y_2 = \Im(z_2)$, $u = \Re(w)$, $v= \Im(w)$ "--- компоненты координат в трехмерном комплексном пространстве, $\mu$, $\nu$ "--- некоторые вещественные параметры, одновременно не равные нулю, а $Q(x_1, y_1, x_2, y_2)$ "--- некоторая квадратичная форма. Под симметрией любой поверхности из данного класса будем понимать любое аффинное преобразование, сохраняющее эту поверхность. В то же время, симметрией определяющей функции поверхности будем называть преобразование, сохраняющее это уравнение с точностью до ненулевого множителя:
+\begin{equation}\label{eq:preservation}
+G(\Phi(z, \overline{z}, v)) = \psi(z, \overline{z}, w, \overline{w}) \cdot \Phi(z, \overline{z}, v),
+\end{equation}
+где $G$ "--- некоторое аффинное преобразование, $\Phi(z, \overline z, v)$ "--- определяющая функция поверхности, а $\psi(z, \overline z, w, \overline w)$ "--- ненулевая функция. Изучая симметрии в таком контексте, вполне естественно обсуждать группы аффинных преобразований, под действиями которых всякая поверхность из класса~(\ref{eq:initial}) сохраняется. Задача данной работы, в таком случае, заключается в изучении групп аффинных преобразований, сохраняющих конкретные поверхности из данного семейства, и размерностей таких групп. 
+
+Заметим, что квадратичная форма $Q(x_1, y_1, x_2, y_2)$ не является совсем произвольной "--- первое требование состоит в том, что она должна быть невырождена  (это требование было унаследовано от задачи об однородности). Второе требование состоит в том, чтобы форма не делилась на $x_2$. Предположим, что эта форма делится на $x_2$, то есть имеет следующий вид:
+\begin{equation*}
+Q(x_1, y_1, x_2, y_2) = k_1 x_2 x_1 + k_2 x_2^2 + k_3 x_2 y_1 + k_4 x_2 y_2 + k_{5} y_2^2,
+\end{equation*}
+где $k_j$ "--- некоторые вещественные коэффициенты. В таком случае, можно поделить обе части~(\ref{eq:initial}) на $x_2$, чтобы получить <<обычную>> квадрику. Данный тип поверхностей не представляет интереса в рамках этой работы и изучаться не будет. 
+
+Следует отметить, что можно изучать поставленную задачу с точностью до аффинных преобразований исходных объектов. На размерности и некоторые другие свойства групп это не повлияет.
+
+TODO: нормальные формы
+
 %%% ТЕОРЕТИЧЕСКАЯ ЧАСТЬ
 \section{Симметрии в трехмерном комплексном пространстве}
-TODO
-\subsection{Группы Ли аффинных преобразований}
-TODO
+
+\subsection{Группы Ли аффинных преобразований в $\mathbb{C}^3$}
+При обсуждении свойств симметрий, удобно использовать группы Ли. Группой Ли называется топологическая группа, если она является параметрической и если функция, задающая закон умножения, является вещественно-аналитичной.
+
 \subsection{Инфинитезимальные преобразования}
 TODO
 \subsection{Системы полиномиальных уравнений}
@@ -297,20 +316,75 @@ TODO
   \end{cases},
 \end{equation}
 где $A_{i}(t), B_{i}(t), C_{i}(t), P_i(t)$ и $q(t)$ "--- некоторые аналитические комплексные функции от вещественного аргумента. Аналитичность функций возможна, так как группа $F_t$ является группой Ли. Для каждой компоненты координат в комплексном пространстве справедливы следующие уравнения:
-\begin{equation}
+\begin{equation}\label{eq:coordinates_transform}
   \begin{cases}
      x_1 &=~x_1 a_{1,1} - y_1 a_{1,2} + x_2 a_{2,1} - y_2 a_{2,2} + u a_{3,1} - v a_{3,2} + p_{1,1} \\ 
-     y_1 &=~x_1 a_{1,2} + x_2 a_{2,2} + y_1 a_{1,1} + y_2 a_{2,1} + u a_{3,2} + v a_{3,1} + p_{1,2} \\
-     x_2 &=~x_1 b_{1,1} + x_2 b_{2,1} - y_1 b_{1,2} - y_2 b_{2,2} + u b_{3,1} - v b_{3,2} + p_{2,1}\\
-     y_2 &=~x_1 b_{1,2} + x_2 b_{2,2} + y_1 b_{1,1} + y_2 b_{2,1} + u b_{3,2} + v b_{3,1} + p_{2,2}\\
-     v   &=~x_1 c_{1,2} + x_2 c_{2,2} + y_1 c_{1,1} + y_2 c_{2,1} + u c_{3,2} + v c_{3,1}+q_2
+     y_1 &=~x_1 a_{1,2} + y_1 a_{1,1} + x_2 a_{2,2} + y_2 a_{2,1} + u a_{3,2} + v a_{3,1} + p_{1,2} \\
+     x_2 &=~x_1 b_{1,1} - y_1 b_{1,2} + x_2 b_{2,1} - y_2 b_{2,2} + u b_{3,1} - v b_{3,2} + p_{2,1}\\
+     y_2 &=~x_1 b_{1,2} + y_1 b_{1,1} + x_2 b_{2,2} + y_2 b_{2,1} + u b_{3,2} + v b_{3,1} + p_{2,2}\\
+     v   &=~x_1 c_{1,2} + y_1 c_{1,1} + x_2 c_{2,2} + y_2 c_{2,1} + u c_{3,2} + v c_{3,1}+q_2\\
   \end{cases},
 \end{equation}
 где $a_{i, 1} = \Re\{A_i(t)\}$, $a_{i, 2} = \Im\{A_i(t)\}$, $b_{i, 1} = \Re\{B_i(t)\}$, $b_{i, 2} = \Im\{B_i(t)\}$, $c_{i, 1} = \Re\{C_i(t)\}$, $c_{i, 2} = \Im\{C_i(t)\}$, $p_{i, 1} = \Re\{P_i(t)\}$, $p_{i, 2} = \Im\{P_i(t)\}$, $q_1 = \Re\{q(t)\}$ и $q_2 = \Im\{q(t)\}$ "--- вещественные функции от аргумента $t$ (опущен для компактности записи). 
 Под действием группы $F_t$ определяющая функция примет следующий вид:
+\begin{multline*}
+F_t(\Phi) = \left(x_1 c_{1,2}+y_1 c_{1,1}+x_2 c_{2,2}+y_2 c_{2,1} + u c_{3,2}+v c_{3,1}+q_2\right) \times \\ 
+\times \left(x_1 b_{1,1}-y_1 b_{1,2}+x_2 b_{2,1}-y_2 b_{2,2} + u b_{3,1}-v b_{3,2}+p_{2,1}\right) + \tilde{Q}(x_1,y_1,x_2,y_2) - \\
+-\left(x_1 b_{1,1}-y_1 b_{1,2}+x_2 b_{2,1}-y_2 b_{2,2}+ u b_{3,1}-v b_{3,2}+p_{2,1}\right) \times \\
+\times \left[\mu  \left(x_1 b_{1,1}-y_1 b_{1,2}+x_2 b_{2,1}-y_2 b_{2,2} + u b_{3,1}-v b_{3,2}+p_{2,1}\right){}^2 + \right. \\ 
++ \ \left. \nu \left(x_1 b_{1,2}+y_1 b_{1,1}+x_2 b_{2,2}+y_2 b_{2,1} + u b_{3,2}+v b_{3,1} + p_{2,2}\right){}^2 \right],
+\end{multline*}
+где $\tilde{Q}(x_1, y_1, x_2, y_2)$ "--- новая квадратичная форма, полученная после действия группы. Введём следующие обозначения:
 \begin{align*}
-F_t(\Phi) &= 
+T(\mathrm{\RN{1}}) &= 
+\begin{multlined}[t]
+\left(x_1 c_{1,2}+y_1 c_{1,1}+x_2 c_{2,2}+y_2 c_{2,1} + u c_{3,2}+v c_{3,1}+q_2\right) \times \\ 
+\times \left(x_1 b_{1,1}-y_1 b_{1,2}+x_2 b_{2,1}-y_2 b_{2,2} + u b_{3,1}-v b_{3,2}+p_{2,1}\right),
+\end{multlined}\\
+T(\mathrm{\RN{2}}) &= 
+\begin{multlined}[t]
+\ \tilde{Q}(x_1,y_1,x_2,y_2),
+\end{multlined}\\
+T(\mathrm{\RN{3}}) &= 
+\begin{multlined}[t]
+\left(x_1 b_{1,1}-y_1 b_{1,2}+x_2 b_{2,1}-y_2 b_{2,2} + u b_{3,1}-v b_{3,2} + p_{2,1}\right) \times \\
+\times \left[\mu  \left(x_1 b_{1,1}-y_1 b_{1,2}+x_2 b_{2,1}-y_2 b_{2,2} + u b_{3,1}-v b_{3,2}+p_{2,1}\right){}^2 + \right. \\ 
++ \nu \left. \left(x_1 b_{1,2}+y_1 b_{1,1}+x_2 b_{2,2}+y_2 b_{2,1} + u b_{3,2}+v b_{3,1} + p_{2,2}\right){}^2 \right].
+\end{multlined}
 \end{align*}
+
+Из~(\ref{eq:preservation}) следует, что факт сохранения определяющей функции $\Phi$ поверхности $M$ из класса~(\ref{eq:initial}) будет описываться следующим уравнением:
+\begin{equation}\label{eq:preservation_m}
+F_t(\Phi(z, \overline{z}, v) = \psi(z, \overline{z}, w, \overline{w}, t) \cdot \Phi(z, \overline{z}, v). 
+\end{equation}
+
+Для того, чтобы перейти от аффинных преобразований к инфинитезимальным, продифференцируем выражение~(\ref{eq:preservation_m}) по параметру $t$ в точке $t = 0$:
+\begin{equation}
+\left.\frac{\mathrm d}{\mathrm{d}t} F_t\left(\Phi(z, \overline{z}, v)\right)\right|_{t = 0} = \Phi(z, \overline{z}, v) \cdot \left.\frac{\mathrm d}{\mathrm{d}t}\psi(z, \overline{z}, w, \overline{w}, t)\right|_{t=0}
+\end{equation}
+
+Тогда:
+\begin{align*}
+\left.\frac{\mathrm d}{\mathrm{d}t}T(\mathrm{\RN{1}})\right|_{t = 0} &= 
+\begin{multlined}[t]
+\left(x_1 \gamma_{1,2}+y_1 \gamma_{1,1}+x_2 \gamma_{2,2}+y_2 \gamma_{2,1} + u \gamma_{3,2}+v \gamma_{3,1}+\sigma_{3,2}\right) x_2 + \\ 
+ + v \left(x_1 \beta_{1,1}-y_1 \beta_{1,2}+x_2 \beta_{2,1}-y_2 \beta_{2,2} + u \beta_{3,1}-v \beta_{3,2}+\sigma_{2,1}\right),
+\end{multlined}\\
+\left.\frac{\mathrm d}{\mathrm{d}t}T(\mathrm{\RN{2}})\right|_{t = 0} &= 
+\begin{multlined}[t]
+\ \left.\frac{\mathrm d}{\mathrm{d}t}\tilde{Q}(x_1,y_1,x_2,y_2)\right|_{t=0} = \tilde{Q}^{\prime}(x_1,y_1,x_2,y_2),
+\end{multlined}\\
+\left.\frac{\mathrm d}{\mathrm{d}t}T(\mathrm{\RN{3}})\right|_{t = 0} &= 
+\begin{multlined}[t]
+\left(\mu  x_2^2+\nu  y_2^2\right) \times \\
+\times\left(\sigma _{2,1}+u \beta _{3,1}-v \beta _{3,2}+x_1 \beta _{1,1}+x_2 \beta _{2,1}-y_1 \beta _{1,2}-y_2 \beta_{2,2}\right)+x_2 \times \\
+\times\left[2 \mu  x_2 \left(\sigma _{2,1}+u \beta _{3,1}-v \beta _{3,2}+x_1 \beta _{1,1}+x_2 \beta _{2,1}-y_1 \beta _{1,2}-y_2 \beta_{2,2}\right)+\right. \\
++ \left.2 \nu  y_2 \left(\sigma _{2,2}+u \beta _{3,2}+v \beta _{3,1}+x_1 \beta _{1,2}+x_2 \beta _{2,2}+y_1 \beta _{1,1}+y_2 \beta_{2,1}\right)\right],
+\end{multlined}
+\end{align*}
+где $a^{\prime}_{i,j}(0) = \alpha_{i,j}$, $b^{\prime}_{i,j}(0) = \beta_{i,j}$, $c^{\prime}_{i,j}(0) = \gamma_{i,j}$, $p^{\prime}_{i,j}(0) = \sigma_{i,j}$, $q^{\prime}_{j}(0) = \sigma_{3,j}$ "--- производные функций из~(\ref{eq:coordinates_transform}). 
+
+В сужении на поверхность $M$
 
 \subsection{Произвольная поверхность}
 В общем случае, квадратичную форму $Q(x_1, y_1, x_2, y_2)$ можно записать в явном виде: 
@@ -383,6 +457,10 @@ $3 \le \dim G \le 5$, причем
 \end{theorem}
 
 \section{Компьютерные алгоритмы}
+В данном разделе приведены описания процедур и функций, которые позволяют реализовать методику, предложенную в разделе 2. 
+\subsection{Основные процедуры}
+TODO
+\subsection{Вспомогательные процедуры}
 TODO
 %%% ЗАКЛЮЧЕНИЕ
 \addcontentsline{toc}{section}{Заключение}
