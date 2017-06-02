@@ -4,59 +4,41 @@
 
 В данном разделе будет описана процедура определения размерностей групп аффинных преобразований для семейства поверхностей~(\ref{eq:initial}).
 \subsection{Общая схема}
-Пусть дана некоторая вещественная гиперповерхность $M$ из семейства~(\ref{eq:initial}) с определяющей функцией $$\Phi(x_1, x_2, y_1, y_2, v) = v x_2 - Q(x_1, y_1, x_2, y_2) - x_2 (\mu x_2^2 + \nu y_2^2).$$ В таком случае, обозначим через $F_t$ однопараметрическую группу Ли аффинных преобразований, сохраняющих эту поверхность. Пусть также эта группа содержит тождественное преобразование при $t = 0$, т.е. $F_0 = \textrm{Id}$. Тогда уравнения, определяющие эту группу будут иметь вид:
-\begin{equation}
-  \begin{cases}
-     z_1 &=~A_{1}(t) z_1^* + A_{2}(t) z_2^* + A_{3}(t) w^* + P_1(t) \\ 
-     z_1 &=~B_{1}(t) z_1^* + B_{2}(t) z_2^* + B_{3}(t) w^* + P_2(t) \\ 
-     w   &=~C_{1}(t) z_1^* + C_{2}(t) z_2^* + C_{3}(t) w^* + q(t)
-  \end{cases},
-\end{equation}
-где $A_{i}(t), B_{i}(t), C_{i}(t), P_i(t)$ и $q(t)$ "--- некоторые аналитические комплексные функции от вещественного аргумента. Аналитичность функций возможна, так как группа $F_t$ является группой Ли. Для каждой компоненты координат в комплексном пространстве справедливы следующие уравнения:
-\begin{equation}\label{eq:coordinates_transform}
-  \begin{cases}
-     x_1 &=~x_1 a_{1,1} - y_1 a_{1,2} + x_2 a_{2,1} - y_2 a_{2,2} + u a_{3,1} - v a_{3,2} + p_{1,1} \\ 
-     y_1 &=~x_1 a_{1,2} + y_1 a_{1,1} + x_2 a_{2,2} + y_2 a_{2,1} + u a_{3,2} + v a_{3,1} + p_{1,2} \\
-     x_2 &=~x_1 b_{1,1} - y_1 b_{1,2} + x_2 b_{2,1} - y_2 b_{2,2} + u b_{3,1} - v b_{3,2} + p_{2,1}\\
-     y_2 &=~x_1 b_{1,2} + y_1 b_{1,1} + x_2 b_{2,2} + y_2 b_{2,1} + u b_{3,2} + v b_{3,1} + p_{2,2}\\
-     v   &=~x_1 c_{1,2} + y_1 c_{1,1} + x_2 c_{2,2} + y_2 c_{2,1} + u c_{3,2} + v c_{3,1}+q_2\\
-  \end{cases},
-\end{equation}
-где $a_{i, 1} = \Re\{A_i(t)\}$, $a_{i, 2} = \Im\{A_i(t)\}$, $b_{i, 1} = \Re\{B_i(t)\}$, $b_{i, 2} = \Im\{B_i(t)\}$, $c_{i, 1} = \Re\{C_i(t)\}$, $c_{i, 2} = \Im\{C_i(t)\}$, $p_{i, 1} = \Re\{P_i(t)\}$, $p_{i, 2} = \Im\{P_i(t)\}$, $q_1 = \Re\{q(t)\}$ и $q_2 = \Im\{q(t)\}$ "--- вещественные функции от аргумента $t$ (опущен для компактности записи). 
+Пусть дана некоторая вещественная гиперповерхность $M$ из семейства~(\ref{eq:initial}) с определяющей функцией $$\Phi(x_1, x_2, y_1, y_2, v) = v x_2 - Q(x_1, y_1, x_2, y_2) - x_2 (\mu x_2^2 + \nu y_2^2).$$ Пусть также $F_t$ "--- однопараметрическая группа аффинных преобразований в $\mathbb{C}^3$, $F_0 = \mathrm{Id}$.
 Под действием группы $F_t$ определяющая функция примет следующий вид:
 \begin{multline*}
-F_t(\Phi) = \left(x_1 c_{1,2}+y_1 c_{1,1}+x_2 c_{2,2}+y_2 c_{2,1} + u c_{3,2}+v c_{3,1}+q_2\right) \times \\ 
+F_t(\Phi) = \left(x_1 c_{1,2}+y_1 c_{1,1}+x_2 c_{2,2}+y_2 c_{2,1} + u c_{3,2}+v c_{3,1}+q_2\right) \times \\
 \times \left(x_1 b_{1,1}-y_1 b_{1,2}+x_2 b_{2,1}-y_2 b_{2,2} + u b_{3,1}-v b_{3,2}+p_{2,1}\right) + \tilde{Q}(x_1,y_1,x_2,y_2,u,v) - \\
 -\left(x_1 b_{1,1}-y_1 b_{1,2}+x_2 b_{2,1}-y_2 b_{2,2}+ u b_{3,1}-v b_{3,2}+p_{2,1}\right) \times \\
-\times \left[\mu  \left(x_1 b_{1,1}-y_1 b_{1,2}+x_2 b_{2,1}-y_2 b_{2,2} + u b_{3,1}-v b_{3,2}+p_{2,1}\right){}^2 + \right. \\ 
+\times \left[\mu  \left(x_1 b_{1,1}-y_1 b_{1,2}+x_2 b_{2,1}-y_2 b_{2,2} + u b_{3,1}-v b_{3,2}+p_{2,1}\right){}^2 + \right. \\
 + \ \left. \nu \left(x_1 b_{1,2}+y_1 b_{1,1}+x_2 b_{2,2}+y_2 b_{2,1} + u b_{3,2}+v b_{3,1} + p_{2,2}\right){}^2 \right],
 \end{multline*}
 где $\tilde{Q}(x_1, y_1, x_2, y_2)$ "--- новая квадратичная форма, полученная после действия группы. Введём следующие обозначения:
 \[
 F_t(\Phi) = T(\mathrm{\RN{1}}) + T(\mathrm{\RN{2}}) - T(\mathrm{\RN{3}}),
 \]
-где 
+где
 \begin{align*}
-T(\mathrm{\RN{1}}) &= 
+T(\mathrm{\RN{1}}) &=
 \begin{multlined}[t]
-\left(x_1 c_{1,2}+y_1 c_{1,1}+x_2 c_{2,2}+y_2 c_{2,1} + u c_{3,2}+v c_{3,1}+q_2\right) \times \\ 
+\left(x_1 c_{1,2}+y_1 c_{1,1}+x_2 c_{2,2}+y_2 c_{2,1} + u c_{3,2}+v c_{3,1}+q_2\right) \times \\
 \times \left(x_1 b_{1,1}-y_1 b_{1,2}+x_2 b_{2,1}-y_2 b_{2,2} + u b_{3,1}-v b_{3,2}+p_{2,1}\right),
 \end{multlined}\\
-T(\mathrm{\RN{2}}) &= 
+T(\mathrm{\RN{2}}) &=
 \begin{multlined}[t]
 \ \tilde{Q}(x_1,y_1,x_2,y_2,u,v),
 \end{multlined}\\
-T(\mathrm{\RN{3}}) &= 
+T(\mathrm{\RN{3}}) &=
 \begin{multlined}[t]
 \left(x_1 b_{1,1}-y_1 b_{1,2}+x_2 b_{2,1}-y_2 b_{2,2} + u b_{3,1}-v b_{3,2} + p_{2,1}\right) \times \\
-\times \left[\mu  \left(x_1 b_{1,1}-y_1 b_{1,2}+x_2 b_{2,1}-y_2 b_{2,2} + u b_{3,1}-v b_{3,2}+p_{2,1}\right){}^2 + \right. \\ 
+\times \left[\mu  \left(x_1 b_{1,1}-y_1 b_{1,2}+x_2 b_{2,1}-y_2 b_{2,2} + u b_{3,1}-v b_{3,2}+p_{2,1}\right){}^2 + \right. \\
 + \nu \left. \left(x_1 b_{1,2}+y_1 b_{1,1}+x_2 b_{2,2}+y_2 b_{2,1} + u b_{3,2}+v b_{3,1} + p_{2,2}\right){}^2 \right].
 \end{multlined}
 \end{align*}
 
 Из~(\ref{eq:preservation}) следует, что факт сохранения определяющей функции $\Phi$ поверхности $M$ из класса~(\ref{eq:initial}) будет описываться следующим уравнением:
 \begin{equation}\label{eq:preservation_m}
-F_t\left(\Phi(z, \overline{z}, v)\right) \equiv \psi(z, \overline{z}, w, \overline{w}, t) \cdot \Phi(z, \overline{z}, v). 
+F_t\left(\Phi(z, \overline{z}, v)\right) \equiv \psi(z, \overline{z}, w, \overline{w}, t) \cdot \Phi(z, \overline{z}, v).
 \end{equation}
 
 Для того, чтобы перейти от аффинных преобразований к инфинитезимальным, продифференцируем выражение~(\ref{eq:preservation_m}) по параметру $t$ в точке $t = 0$:
@@ -66,16 +48,16 @@ F_t\left(\Phi(z, \overline{z}, v)\right) \equiv \psi(z, \overline{z}, w, \overli
 
 Тогда:
 \begin{align*}
-\left.\frac{\mathrm d}{\mathrm{d}t}T(\mathrm{\RN{1}})\right|_{t = 0} &= 
+\left.\frac{\mathrm d}{\mathrm{d}t}T(\mathrm{\RN{1}})\right|_{t = 0} &=
 \begin{multlined}[t]
-\left(x_1 \gamma_{1,2}+y_1 \gamma_{1,1}+x_2 \gamma_{2,2}+y_2 \gamma_{2,1} + u \gamma_{3,2}+v \gamma_{3,1}+\sigma_{3,2}\right) x_2 + \\ 
+\left(x_1 \gamma_{1,2}+y_1 \gamma_{1,1}+x_2 \gamma_{2,2}+y_2 \gamma_{2,1} + u \gamma_{3,2}+v \gamma_{3,1}+\sigma_{3,2}\right) x_2 + \\
  + v \left(x_1 \beta_{1,1}-y_1 \beta_{1,2}+x_2 \beta_{2,1}-y_2 \beta_{2,2} + u \beta_{3,1}-v \beta_{3,2}+\sigma_{2,1}\right),
 \end{multlined}\nonumber\\
-\left.\frac{\mathrm d}{\mathrm{d}t}T(\mathrm{\RN{2}})\right|_{t = 0} &= 
+\left.\frac{\mathrm d}{\mathrm{d}t}T(\mathrm{\RN{2}})\right|_{t = 0} &=
 \begin{multlined}[t]
 \ \left.\frac{\mathrm d}{\mathrm{d}t}\tilde{Q}(x_1,y_1,x_2,y_2,u,v)\right|_{t=0} = \tilde{Q}^{\prime}(x_1,y_1,x_2,y_2,u,v),
 \end{multlined}\\
-\left.\frac{\mathrm d}{\mathrm{d}t}T(\mathrm{\RN{3}})\right|_{t = 0} &= 
+\left.\frac{\mathrm d}{\mathrm{d}t}T(\mathrm{\RN{3}})\right|_{t = 0} &=
 \begin{multlined}[t]
 \left(\mu  x_2^2+\nu  y_2^2\right) \times \\
 \times\left(\sigma _{2,1}+u \beta _{3,1}-v \beta _{3,2}+x_1 \beta _{1,1}+x_2 \beta _{2,1}-y_1 \beta _{1,2}-y_2 \beta_{2,2}\right)+x_2 \times \\
@@ -83,7 +65,6 @@ F_t\left(\Phi(z, \overline{z}, v)\right) \equiv \psi(z, \overline{z}, w, \overli
 + \left.2 \nu  y_2 \left(\sigma _{2,2}+u \beta _{3,2}+v \beta _{3,1}+x_1 \beta _{1,2}+x_2 \beta _{2,2}+y_1 \beta _{1,1}+y_2 \beta_{2,1}\right)\right],\nonumber
 \end{multlined}
 \end{align*}
-где $a^{\prime}_{i,j}(0) = \alpha_{i,j}$, $b^{\prime}_{i,j}(0) = \beta_{i,j}$, $c^{\prime}_{i,j}(0) = \gamma_{i,j}$, $p^{\prime}_{i,j}(0) = \sigma_{i,j}$, $q^{\prime}_{j}(0) = \sigma_{3,j}$ "--- производные функций из~(\ref{eq:coordinates_transform}) в точке $t = 0$. 
 
 Заметим, что левая часть выражения~(\ref{eq:diff}) является действием инфинитезимального преобразования, порождающего группу $F_t$, на поверхность $M$. Для того, чтобы найти это преобразование, необходимо произвести сужение выражения~(\ref{eq:diff}) на эту поверхность. Для этого выразим переменную $v$ из выражения~(\ref{eq:initial}):
 \begin{equation*}
@@ -98,7 +79,7 @@ v = -\frac{Q(x_1, y_1, x_2, y_2)}{x_2} + \mu x_2^2 + \nu y_2^2.
 \begin{multline}
 \left.\left\{ \left.\frac{\mathrm d}{\mathrm{d}t}T(\mathrm{\RN{1}})\right|_{t = 0}\right\} \right|_M =
 \left(-\frac{Q\left(x_1,y_1,x_2,y_2\right)}{x_2} + \mu x_2^2 + \nu y_2^2\right) \times \\
-\times \left( \sigma_{2,1} + u \beta_{3,1} + x_1 \beta_{1,1} + x_2 \beta_{2,1} + x_2 \gamma_{3,1} - y_1 \beta_{1,2} - y_2 \beta_{2,2} \right) - \\ 
+\times \left( \sigma_{2,1} + u \beta_{3,1} + x_1 \beta_{1,1} + x_2 \beta_{2,1} + x_2 \gamma_{3,1} - y_1 \beta_{1,2} - y_2 \beta_{2,2} \right) - \\
 - \beta_{3,2} \left(-\frac{Q\left(x_1,y_1,x_2,y_2\right)}{x_2}+\mu  x_2^2+\nu y_2^2\right){}^2 + \\
 + u x_2 \gamma_{3,2} + x_2^2 \gamma_{2,2} + x_1 x_2 \gamma_{1,2}+x_2 \sigma_{3,2}+x_2 y_1 \gamma_{1,1}+x_2 y_2 \gamma_{2,1}
 \end{multline}
@@ -110,9 +91,11 @@ v = -\frac{Q(x_1, y_1, x_2, y_2)}{x_2} + \mu x_2^2 + \nu y_2^2.
 S(x_1, y_1, x_2, y_2, u) = \mathrm{сокращение} \equiv 0
 \end{equation*}
 
+
+
 %%%%%%%
 \subsection{Произвольная поверхность}
-В общем случае, квадратичную форму $Q(x_1, y_1, x_2, y_2)$ можно записать в явном виде: 
+В общем случае, квадратичную форму $Q(x_1, y_1, x_2, y_2)$ можно записать в явном виде:
 \begin{align*}
 Q(x_1, y_1, x_2, y_2) &= k_1 x_1^2 + k_2 x_2 x_1 + k_3 x_2^2 + k_4 x_1 y_1 + k_5 x_2 y_1 \\
 &+ k_6 y_1^2 + k_7 x_1 y_2 + k_8 x_2 y_2 + k_9 y_1 y_2 + k_{10} y_2^2
@@ -147,9 +130,9 @@ v x_2 = k_2 x_2 x_1 + k_3 x_2^2 + k_5 x_2 y_1 + k_8 x_2 y_2 + x_2 (\mu x_2^2 + \
 \end{equation*}
 Легко видеть, что данное уравнение можно поделить на $x_2$, что в итоге даст новую поверхность, которая является квадрикой. Рассмотрение поверхностей данного типа не представляет интереса в данной работе, поэтому можно сразу перейти к рассмотрению второго случая.
 
-Предположим, что $k_1 \ne 0 $. В таком случае, приведем элементарными преобразованиями матрицу системы $W$ к ступенчатому виду. 
+Предположим, что $k_1 \ne 0 $. В таком случае, приведем элементарными преобразованиями матрицу системы $W$ к ступенчатому виду.
 
-Исходя их этих соображений можно сформулировать следующую теорему: 
+Исходя их этих соображений можно сформулировать следующую теорему:
 \begin{theorem} Размерность группы Ли аффинных преобразований, сохраняющих любую поверхность из семейства~(\ref{eq:initial}), удовлетворяет неравенству $1 \le \dim G \le 5$, и каждая из размерностей достижима.
 \end{theorem}
 

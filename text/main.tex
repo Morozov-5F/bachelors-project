@@ -9,7 +9,7 @@
 
 \documentclass[a4paper,14pt]{extarticle}
 \usepackage{geometry}
-\geometry{a4paper}                   % ... or a4paper or a5paper or ... 
+\geometry{a4paper}                   % ... or a4paper or a5paper or ...
 %\geometry{landscape}                % Activate for for rotated page geometry
 \setlength{\parindent}{15mm}
 %\renewcommand{\baselinestretch}{1.5}
@@ -23,7 +23,7 @@
 \newtheorem{consequence}{Следствие}
 %\usepackage{mathptmx}
 %\usepackage[utf8]{inputenc}
-\usepackage{fontspec,,xltxtra,xunicode}
+\usepackage{fontspec,xltxtra,xunicode}
 \usepackage{csquotes}
 \usepackage{tocloft}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
@@ -38,7 +38,12 @@
 \setsansfont{CMU Sans Serif}
 \setmonofont{CMU Typewriter Text}
 
-\usepackage[english, russian]{babel}
+%\usepackage[english, russian]{babel}
+\usepackage{polyglossia}
+\setmainlanguage{russian}
+\setotherlanguage{english}
+\setkeys{russian}{babelshorthands=true}
+
 \newcommand{\sectionbreak}{\clearpage}
 \usepackage{titlesec}
 \usepackage{indentfirst}
@@ -51,8 +56,10 @@
 \usepackage{listings}
 \lstset{language=Mathematica}
 
+\usepackage{csquotes}
 \usepackage[
 	style=gost-numeric,
+	bibencoding=utf8,
 	language=auto,
 	autolang=other,
 	sorting=none,
@@ -98,7 +105,7 @@
 %\maketitle
 
 % For many users, the previous commands will be enough.
-% If you want to directly input Unicode, add an Input Menu or Keyboard to the menu bar 
+% If you want to directly input Unicode, add an Input Menu or Keyboard to the menu bar
 % using the International Panel in System Preferences.
 % Unicode must be typeset using a font containing the appropriate characters.
 % Remove the comment signs below for examples.
@@ -107,7 +114,7 @@
 % \newfontfamily{\H}[Scale=0.9]{Lucida Grande}
 % \newfontfamily{\J}[Scale=0.85]{Osaka}
 
-% Here are some multilingual Unicode fonts: this is Arabic text: {\A السلام عليكم}, this is Hebrew: {\H שלום}, 
+% Here are some multilingual Unicode fonts: this is Arabic text: {\A السلام عليكم}, this is Hebrew: {\H שלום},
 % and here's some Japanese: {\J 今日は}.
 
 %% ВВЕДЕНИЕ
@@ -157,4 +164,4 @@
 
 \end{appendices}
 
-\end{document}  
+\end{document}
