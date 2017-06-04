@@ -2,10 +2,23 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-В данном разделе представлен листинг написанной программы по получению описанной системы линейных уравнений на языке Wolfram Language.
+В данном приложении представлен листинг написанной программы по получению описанной системы линейных уравнений на языке \ttfamily{Wolfram Language}.
 
 \begin{lstlisting}
-TODO
+AdaptiveElmination[matrix_, variables_] :=
+  Module[{m = matrix, perms = {}, dim = Dimensions@matrix,
+    h = Dimensions@matrix[[1]], w = Dimensions@matrix[[2]],
+    vars = Flatten@{variables}, pattern, pos, i},
+   pattern = Except[0, _Integer | _?(Variables@# === vars &)];
+   For[i = 1, i < Min[w, h], i++,
+    pos = Flatten@Position[m[[i ;;, i ;;]], pattern, 2, 1];
+    If[pos === {}, Break[], pos += {i - 1, i - 1}];
+    m[[{i, pos[[1]]}]] = m[[{pos[[1]], i}]];
+    m[[All, {i, pos[[2]]}]] = m[[All, {pos[[2]], i}]];
+    m[[i + 1 ;;]] = Factor@MatrixReduceRow[m, i];
+    ];
+   m
+   ];
 \end{lstlisting}
 
 \end{document}

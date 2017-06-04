@@ -4,94 +4,43 @@
 
 В данном разделе будет описана процедура определения размерностей групп аффинных преобразований для семейства поверхностей~(\ref{eq:initial}).
 \subsection{Общая схема}
-Пусть дана некоторая вещественная гиперповерхность $M$ из семейства~(\ref{eq:initial}) с определяющей функцией $$\Phi(x_1, x_2, y_1, y_2, v) = v x_2 - Q(x_1, y_1, x_2, y_2) - x_2 (\mu x_2^2 + \nu y_2^2).$$ Пусть также $F_t$ "--- однопараметрическая группа аффинных преобразований в $\mathbb{C}^3$, $F_0 = \mathrm{Id}$.
-Под действием группы $F_t$ определяющая функция примет следующий вид:
-\begin{multline*}
-F_t(\Phi) = \left(x_1 c_{1,2}+y_1 c_{1,1}+x_2 c_{2,2}+y_2 c_{2,1} + u c_{3,2}+v c_{3,1}+q_2\right) \times \\
-\times \left(x_1 b_{1,1}-y_1 b_{1,2}+x_2 b_{2,1}-y_2 b_{2,2} + u b_{3,1}-v b_{3,2}+p_{2,1}\right) + \tilde{Q}(x_1,y_1,x_2,y_2,u,v) - \\
--\left(x_1 b_{1,1}-y_1 b_{1,2}+x_2 b_{2,1}-y_2 b_{2,2}+ u b_{3,1}-v b_{3,2}+p_{2,1}\right) \times \\
-\times \left[\mu  \left(x_1 b_{1,1}-y_1 b_{1,2}+x_2 b_{2,1}-y_2 b_{2,2} + u b_{3,1}-v b_{3,2}+p_{2,1}\right){}^2 + \right. \\
-+ \ \left. \nu \left(x_1 b_{1,2}+y_1 b_{1,1}+x_2 b_{2,2}+y_2 b_{2,1} + u b_{3,2}+v b_{3,1} + p_{2,2}\right){}^2 \right],
-\end{multline*}
-где $\tilde{Q}(x_1, y_1, x_2, y_2)$ "--- новая квадратичная форма, полученная после действия группы. Введём следующие обозначения:
-\[
-F_t(\Phi) = T(\mathrm{\RN{1}}) + T(\mathrm{\RN{2}}) - T(\mathrm{\RN{3}}),
-\]
-где
-\begin{align*}
-T(\mathrm{\RN{1}}) &=
-\begin{multlined}[t]
-\left(x_1 c_{1,2}+y_1 c_{1,1}+x_2 c_{2,2}+y_2 c_{2,1} + u c_{3,2}+v c_{3,1}+q_2\right) \times \\
-\times \left(x_1 b_{1,1}-y_1 b_{1,2}+x_2 b_{2,1}-y_2 b_{2,2} + u b_{3,1}-v b_{3,2}+p_{2,1}\right),
-\end{multlined}\\
-T(\mathrm{\RN{2}}) &=
-\begin{multlined}[t]
-\ \tilde{Q}(x_1,y_1,x_2,y_2,u,v),
-\end{multlined}\\
-T(\mathrm{\RN{3}}) &=
-\begin{multlined}[t]
-\left(x_1 b_{1,1}-y_1 b_{1,2}+x_2 b_{2,1}-y_2 b_{2,2} + u b_{3,1}-v b_{3,2} + p_{2,1}\right) \times \\
-\times \left[\mu  \left(x_1 b_{1,1}-y_1 b_{1,2}+x_2 b_{2,1}-y_2 b_{2,2} + u b_{3,1}-v b_{3,2}+p_{2,1}\right){}^2 + \right. \\
-+ \nu \left. \left(x_1 b_{1,2}+y_1 b_{1,1}+x_2 b_{2,2}+y_2 b_{2,1} + u b_{3,2}+v b_{3,1} + p_{2,2}\right){}^2 \right].
-\end{multlined}
-\end{align*}
+Основываясь на сведениях из раздела 2, можно сформулировать следующий алгоритм для нахождения размерности групп аффинных преобразований, сохраняющих поверхности из семейства~(\ref{eq:initial}):
+\begin{enumerate}
+\item Применить аффинное преобразование~(\ref{eq:affine_transform}) к уравнению поверхности
+\item Продифференцировать полученное выражение по параметру группы $t$ в точке $t = 0$.
+\item Разрешить уравнение поверхности относительно переменной $v$ и подставить в выражение и предыдущего шага и умножить на возникающий общий знаменатель ($x_2^2$).
+\item Составить однородную систему линейных относительно элементов инфинитезимального преобразования уравнений и выписать матрицу этой системы.
+\item Размерность группы Ли аффинных преобразований $G$, сохраняющих поверхность из исследуемого семейства, равна $\dim G = 24 - \mathrm{rank}~W$, где $W$ "--- полученная матрица системы.
+\end{enumerate}
 
-Из~(\ref{eq:preservation}) следует, что факт сохранения определяющей функции $\Phi$ поверхности $M$ из класса~(\ref{eq:initial}) будет описываться следующим уравнением:
-\begin{equation}\label{eq:preservation_m}
-F_t\left(\Phi(z, \overline{z}, v)\right) \equiv \psi(z, \overline{z}, w, \overline{w}, t) \cdot \Phi(z, \overline{z}, v).
+%%%%%%
+\subsection{Частный случай семейства}
+В связи со сложностью рассмотрения общего случая, был рассмотрен частный случай семейства поверхностей~(\ref{eq:initial}), в котором квадратичная форма $Q$ не зависит от переменных $x_2$ и $y_2$. В таком случае, семейство может быть описано следующим образом:
+\begin{equation}\label{eq:special}
+v x_2 = k_1 x_1^2 + k_2 x_1 y_1 + k_3 x_2^2 + x_2 (\mu x_2^2 + \nu y_2^2),
 \end{equation}
 
-Для того, чтобы перейти от аффинных преобразований к инфинитезимальным, продифференцируем выражение~(\ref{eq:preservation_m}) по параметру $t$ в точке $t = 0$:
-\begin{equation}\label{eq:diff}
-\left.\frac{\mathrm d}{\mathrm{d}t} F_t\left(\Phi(z, \overline{z}, v)\right)\right|_{t = 0} \equiv \Phi(z, \overline{z}, v) \cdot \left.\frac{\mathrm d}{\mathrm{d}t}\psi(z, \overline{z}, w, \overline{w}, t)\right|_{t=0}
-\end{equation}
+Следует заметить, что за счёт применения невырожденных аффинных преобразований, можно фактически сократить число параметров $k_1, k_2$ и $k_3$ до одного.
 
-Тогда:
-\begin{align*}
-\left.\frac{\mathrm d}{\mathrm{d}t}T(\mathrm{\RN{1}})\right|_{t = 0} &=
-\begin{multlined}[t]
-\left(x_1 \gamma_{1,2}+y_1 \gamma_{1,1}+x_2 \gamma_{2,2}+y_2 \gamma_{2,1} + u \gamma_{3,2}+v \gamma_{3,1}+\sigma_{3,2}\right) x_2 + \\
- + v \left(x_1 \beta_{1,1}-y_1 \beta_{1,2}+x_2 \beta_{2,1}-y_2 \beta_{2,2} + u \beta_{3,1}-v \beta_{3,2}+\sigma_{2,1}\right),
-\end{multlined}\nonumber\\
-\left.\frac{\mathrm d}{\mathrm{d}t}T(\mathrm{\RN{2}})\right|_{t = 0} &=
-\begin{multlined}[t]
-\ \left.\frac{\mathrm d}{\mathrm{d}t}\tilde{Q}(x_1,y_1,x_2,y_2,u,v)\right|_{t=0} = \tilde{Q}^{\prime}(x_1,y_1,x_2,y_2,u,v),
-\end{multlined}\\
-\left.\frac{\mathrm d}{\mathrm{d}t}T(\mathrm{\RN{3}})\right|_{t = 0} &=
-\begin{multlined}[t]
-\left(\mu  x_2^2+\nu  y_2^2\right) \times \\
-\times\left(\sigma _{2,1}+u \beta _{3,1}-v \beta _{3,2}+x_1 \beta _{1,1}+x_2 \beta _{2,1}-y_1 \beta _{1,2}-y_2 \beta_{2,2}\right)+x_2 \times \\
-\times\left[2 \mu  x_2 \left(\sigma _{2,1}+u \beta _{3,1}-v \beta _{3,2}+x_1 \beta _{1,1}+x_2 \beta _{2,1}-y_1 \beta _{1,2}-y_2 \beta_{2,2}\right)+\right. \\
-+ \left.2 \nu  y_2 \left(\sigma _{2,2}+u \beta _{3,2}+v \beta _{3,1}+x_1 \beta _{1,2}+x_2 \beta _{2,2}+y_1 \beta _{1,1}+y_2 \beta_{2,1}\right)\right],\nonumber
-\end{multlined}
-\end{align*}
+В результате применения описанного метода, получается однородная линейная система из 57 уравнений относительно 24 неизвестных. Схему матрицы этой системы можно посмотреть в приложении 3.
 
-Заметим, что левая часть выражения~(\ref{eq:diff}) является действием инфинитезимального преобразования, порождающего группу $F_t$, на поверхность $M$. Для того, чтобы найти это преобразование, необходимо произвести сужение выражения~(\ref{eq:diff}) на эту поверхность. Для этого выразим переменную $v$ из выражения~(\ref{eq:initial}):
-\begin{equation*}
-v = -\frac{Q(x_1, y_1, x_2, y_2)}{x_2} + \mu x_2^2 + \nu y_2^2.
-\end{equation*}
-Так как сужение определяющей функции поверхности на саму поверхность дает ноль, справедливо следующее тождество:
-\begin{equation}\label{eq:main_stuff}
-\left. \left\{\left.\frac{\mathrm d}{\mathrm{d}t} F_t\left(\Phi(z, \overline{z}, v)\right)\right|_{t = 0} \right\} \right|_M \equiv 0
-\end{equation}
-
-В результате данной подстановки возникает рациональная функция, общий вид которой, вообще говоря, зависит от квадратичной формы $Q$. Проиллюстрируем данный факт на примере компоненты $T(\mathrm{\RN{1}})$:
-\begin{multline}
-\left.\left\{ \left.\frac{\mathrm d}{\mathrm{d}t}T(\mathrm{\RN{1}})\right|_{t = 0}\right\} \right|_M =
-\left(-\frac{Q\left(x_1,y_1,x_2,y_2\right)}{x_2} + \mu x_2^2 + \nu y_2^2\right) \times \\
-\times \left( \sigma_{2,1} + u \beta_{3,1} + x_1 \beta_{1,1} + x_2 \beta_{2,1} + x_2 \gamma_{3,1} - y_1 \beta_{1,2} - y_2 \beta_{2,2} \right) - \\
-- \beta_{3,2} \left(-\frac{Q\left(x_1,y_1,x_2,y_2\right)}{x_2}+\mu  x_2^2+\nu y_2^2\right){}^2 + \\
-+ u x_2 \gamma_{3,2} + x_2^2 \gamma_{2,2} + x_1 x_2 \gamma_{1,2}+x_2 \sigma_{3,2}+x_2 y_1 \gamma_{1,1}+x_2 y_2 \gamma_{2,1}
-\end{multline}
-
-\textbf{Замечание}: другие компоненты из-за своей громоздкости вынесены в приложение 1 (см. формулы~(\ref{eq:appendix_t1})~--~(\ref{eq:appendix_t3})) .
-
-Отсюда видно, что общий знаменатель выражения~(\ref{eq:main_stuff}) равен $x_2^2$. Умножая выражение~(\ref{eq:main_stuff}) на него, получаем полиномиальное уравнение:
-\begin{equation*}
-S(x_1, y_1, x_2, y_2, u) = \mathrm{сокращение} \equiv 0
-\end{equation*}
-
-
+\begin{theorem} размерность группы Ли аффинных преобразований, сохраняющих любую поверхность вида~(\ref{eq:special}), удовлетворяет неравенствам
+$3 \le \dim G \le 5$, причем
+\begin{itemize}
+	\item $\dim G$ = 3 достигается на поверхностях вида
+	\begin{equation}\label{eq:special_3}
+		v x_2 = k x_1^2 + y_1^2 + x_2 (\mu x_2^2 + \nu y_2^2),\ k \ne 0, \ k \ne 1;
+	\end{equation}
+	\item $\dim G$ = 4 достигается на поверхностях вида
+	\begin{equation}\label{eq:special_4}
+		v x_2 = |z_1|^2 + x_2 (\mu x_2^2 + \nu y_2^2);
+	\end{equation}
+		\item $\dim G$ = 5 достигается на аффинно-однородных поверхностях следующего вида
+	\begin{equation}\label{eq:special_5}
+		v x_2 = x_1^2 + x_2 (\mu x_2^2 + \nu y_2^2).
+	\end{equation}
+\end{itemize}
+\end{theorem}
 
 %%%%%%%
 \subsection{Произвольная поверхность}
@@ -133,36 +82,8 @@ v x_2 = k_2 x_2 x_1 + k_3 x_2^2 + k_5 x_2 y_1 + k_8 x_2 y_2 + x_2 (\mu x_2^2 + \
 Предположим, что $k_1 \ne 0 $. В таком случае, приведем элементарными преобразованиями матрицу системы $W$ к ступенчатому виду.
 
 Исходя их этих соображений можно сформулировать следующую теорему:
+
 \begin{theorem} Размерность группы Ли аффинных преобразований, сохраняющих любую поверхность из семейства~(\ref{eq:initial}), удовлетворяет неравенству $1 \le \dim G \le 5$, и каждая из размерностей достижима.
-\end{theorem}
-
-%%%%%%%
-\subsection{Частный случай семейства}
-В связи со сложностью рассмотрения общего случая, был рассмотрен частный случай семейства поверхностей~(\ref{eq:initial}), в котором квадратичная форма $Q$ не зависит от переменных $x_2$ и $y_2$. В таком случае, семейство может быть описано следующим образом:
-\begin{equation}\label{eq:special}
-v x_2 = k_1 x_1^2 + k_2 x_1 y_1 + k_3 x_2^2 + x_2 (\mu x_2^2 + \nu y_2^2),
-\end{equation}
-
-Следует заметить, что за счёт применения невырожденных аффинных преобразований, можно фактически сократить число параметров $k_1, k_2$ и $k_3$ до одного.
-
-В результате применения описанного метода, получается однородная линейная система из 57 уравнений относительно 24 неизвестных.
-
-\begin{theorem} размерность группы Ли аффинных преобразований, сохраняющих любую поверхность вида~(\ref{eq:special}), удовлетворяет неравенствам
-$3 \le \dim G \le 5$, причем
-\begin{itemize}
-	\item $\dim G$ = 3 достигается на поверхностях вида
-	\begin{equation}\label{eq:special_3}
-		v x_2 = k x_1^2 + y_1^2 + x_2 (\mu x_2^2 + \nu y_2^2),\ k \ne 0, \ k \ne 1;
-	\end{equation}
-	\item $\dim G$ = 4 достигается на поверхностях вида
-	\begin{equation}\label{eq:special_4}
-		v x_2 = |z_1|^2 + x_2 (\mu x_2^2 + \nu y_2^2);
-	\end{equation}
-		\item $\dim G$ = 5 достигается на аффинно-однородных поверхностях следующего вида
-	\begin{equation}\label{eq:special_5}
-		v x_2 = x_1^2 + x_2 (\mu x_2^2 + \nu y_2^2).
-	\end{equation}
-\end{itemize}
 \end{theorem}
 
 \end{document}

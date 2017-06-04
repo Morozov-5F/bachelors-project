@@ -5,7 +5,7 @@
 
 %!TEX TS-program = xelatex
 %!TEX encoding = UTF-8 Unicode
-%!BIB program = biber
+
 
 \documentclass[a4paper,14pt]{extarticle}
 \usepackage{geometry}
@@ -21,8 +21,6 @@
 \newtheorem{lemma}{Лемма}
 \newtheorem{theorem_alt}{Теорема (альтернативная формулировка)}
 \newtheorem{consequence}{Следствие}
-%\usepackage{mathptmx}
-%\usepackage[utf8]{inputenc}
 \usepackage{fontspec,xltxtra,xunicode}
 \usepackage{csquotes}
 \usepackage{tocloft}
@@ -53,26 +51,37 @@
 \titleformat*{\section}{\Large\bfseries\centering}
 \titleformat*{\subsection}{\large\bfseries\centering}
 
-\usepackage{listings}
-\lstset{language=Mathematica}
+\usepackage{listings} 
+\lstset{ 
+language=[5.2]Mathematica, 
+morekeywords={Solve, Evaluate}, 
+breaklines=true, 
+extendedchars=\true, 
+inputencoding=utf8, 
+tabsize=2, 
+escapeinside={\%}{\%}, 
+basicstyle=\small\ttfamily,
+keywordstyle=\textbf
+}
 
 \usepackage{csquotes}
-\usepackage[
-	style=gost-numeric,
-	bibencoding=utf8,
-	language=auto,
-	autolang=other,
-	sorting=none,
-	backend=biber,
-	bibencoding=utf8,
-	isbn=false,
-	sortcites=true,
-	clearlang=true,
-	language=autobib,
-	defernumbers=true,
-]{biblatex}
-\addbibresource{../bib_files/bibliography.bib}
+%\usepackage[
+%	style=gost-numeric,
+%	bibencoding=utf8,
+%	language=auto,
+%	autolang=other,
+%	sorting=none,
+%	backend=biber,
+%	bibencoding=utf8,
+%	isbn=false,
+%	sortcites=true,
+%	clearlang=true,
+%	language=autobib,
+%	defernumbers=true,
+%]{biblatex}
+%\addbibresource{../bib_files/bibliography.bib}
 
+\numberwithin{equation}{section}
 \usepackage{subfiles}
 
 % Will Robertson's fontspec.sty can be used to simplify font choices.
@@ -84,7 +93,11 @@
 
 %\title{Brief Article}
 %\author{The Author}
-\date{}                                           % Activate to display a given date or no date
+%\date{}                                      % Activate to display a given date or no date
+
+\newcommand{\RN}[1]{%
+  \textup{\uppercase\expandafter{\romannumeral#1}}%
+}
 
 \begin{document}
 \newgeometry{margin=2cm}
@@ -104,28 +117,10 @@
 \tableofcontents
 %\maketitle
 
-% For many users, the previous commands will be enough.
-% If you want to directly input Unicode, add an Input Menu or Keyboard to the menu bar
-% using the International Panel in System Preferences.
-% Unicode must be typeset using a font containing the appropriate characters.
-% Remove the comment signs below for examples.
-
-% \newfontfamily{\A}{Geeza Pro}
-% \newfontfamily{\H}[Scale=0.9]{Lucida Grande}
-% \newfontfamily{\J}[Scale=0.85]{Osaka}
-
-% Here are some multilingual Unicode fonts: this is Arabic text: {\A السلام عليكم}, this is Hebrew: {\H שלום},
-% and here's some Japanese: {\J 今日は}.
-
 %% ВВЕДЕНИЕ
-
 \addcontentsline{toc}{section}{Введение}
 \section*{\centering Введение}
 \subfile{sections/introduction}
-
-%%%
-%%% ОСНОВНАЯ ЧАСТЬ
-%%%
 
 %%% ПОСТАНОВКА ЗАДАЧИ
 \section{Постановка задачи}
@@ -134,12 +129,12 @@
 %%% ТЕОРЕТИЧЕСКАЯ ЧАСТЬ
 \section{Симметрии в трехмерном комплексном пространстве}
 \subfile{sections/second_chapter}
-%%% ОПИСАНИЕ ПРОГРАММЫ
 
 %%% ЭКСПЕРИМЕНТАЛЬНАЯ ЧАСТЬ
 \section{Определение размерности групп аффинных преобразований}
 \subfile{sections/third_chapter}
 
+%%% КОМПЬЮТЕРНЫЕ АЛГОРИТМЫ
 \section{Компьютерные алгоритмы}
 \subfile{sections/fourth_chapter}
 
@@ -148,12 +143,17 @@
 \section*{\centering Заключение}
 \subfile{sections/conclusion}
 
+%%% СПИСОК ЛИТЕРАТУРЫ
 \addcontentsline{toc}{section}{Список использованных источников}
-\printbibliography
+%\printbibliography
+\bibliography{../bib_files/bibliography}
+\bibliographystyle{ugost2003}
 
 %%% ПРИЛОЖЕНИЕ
 \begin{appendices}
-\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesection}{\Asbuk{section}}
+\titleformat{\section}[display]
+    {\centering\normalfont\Large\bfseries}{\appendixname\enspace\thesection}{.5em}{}
 \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 
 \section{Используемые выражения}
@@ -161,6 +161,12 @@
 
 \section{Листинг программы}
 \subfile{sections/appendix_two}
+
+\section{Схема матрицы в частном случае}
+\subfile{sections/appendix_three}
+
+\section{Схема матрицы в общем случае}
+\subfile{sections/appendix_four}
 
 \end{appendices}
 
