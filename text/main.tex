@@ -59,9 +59,10 @@ breaklines=true,
 extendedchars=\true, 
 inputencoding=utf8, 
 tabsize=2, 
-escapeinside={\%}{\%}, 
+escapeinside={\%}{\%},
 basicstyle=\small\ttfamily,
-keywordstyle=\textbf
+keywordstyle=\textbf,
+texcl=true,
 }
 
 \usepackage{csquotes}
@@ -139,13 +140,13 @@ keywordstyle=\textbf
 \subfile{sections/fourth_chapter}
 
 %%% ЗАКЛЮЧЕНИЕ
-\addcontentsline{toc}{section}{Заключение}
 \section*{\centering Заключение}
+\addcontentsline{toc}{section}{Заключение}
 \subfile{sections/conclusion}
 
 %%% СПИСОК ЛИТЕРАТУРЫ
+\newpage
 \addcontentsline{toc}{section}{Список использованных источников}
-%\printbibliography
 \bibliography{../bib_files/bibliography}
 \bibliographystyle{ugost2003}
 

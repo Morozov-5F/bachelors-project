@@ -1,10 +1,25 @@
 % !TEX root = ../main.tex
 \documentclass[../main.tex]{subfiles}
+
 \begin{document}
 
-В данном приложении представлен листинг написанной программы по получению описанной системы линейных уравнений на языке \ttfamily{Wolfram Language}.
+В данном приложении представлен листинг написанной программы по получению описанной системы линейных уравнений на языке {\ttfamily Wolfram Language}. 
 
 \begin{lstlisting}
+(*% Применяет аффинное преобразование к полученной поверхности %*)
+TransformSurface[surface_] :=
+ Module[{s = surface, st, tr = CreateTransform[]},
+  st = s /. {Subscript[x, 1] -> ComplexExpand@Re@Subscript[Z, 1]@tr, 
+     Subscript[y, 1] -> ComplexExpand@Im@Subscript[Z, 1]@tr,
+     	Subscript[x, 2] -> ComplexExpand@Re@Subscript[Z, 2]@tr, 
+     Subscript[y, 2] -> ComplexExpand@Im@Subscript[Z, 2]@tr,
+     u -> ComplexExpand@Re@W@tr, v -> ComplexExpand@Im@W@tr};
+  Evaluate@st
+  ]
+\end{lstlisting}
+
+\begin{lstlisting}
+(*% Приводит матрицу к ступенчатому виду, принимая в расчет, что переменные variables не являются нулевыми %*)
 AdaptiveElmination[matrix_, variables_] :=
   Module[{m = matrix, perms = {}, dim = Dimensions@matrix,
     h = Dimensions@matrix[[1]], w = Dimensions@matrix[[2]],
@@ -19,6 +34,38 @@ AdaptiveElmination[matrix_, variables_] :=
     ];
    m
    ];
+\end{lstlisting}
+
+\begin{lstlisting}
+(*% Печатает матрицу с номерами столбцов и строк %*)
+PrintMatrix[matrix_] :=
+ Module[{m = matrix, dim = Dimensions@matrix},
+  MatrixForm[m, TableHeadings -> {Range@dim[[1]], Range@dim[[2]]}]
+  ]
+\end{lstlisting}
+
+\begin{lstlisting}
+(*%  %*)
+MatrixReduceRow[matrix_, row_] :=
+ Module[{m = matrix, r = row},
+  m = # - #[[row]]*matrix[[row]]/matrix[[row, row]] & /@ 
+    matrix[[row + 1 ;;]];
+  m
+  ]
+\end{lstlisting}
+
+\begin{lstlisting}
+(*% Создает матрицу аффинного преобразования в C3 %*)
+CreateTransform[] :=
+ Module[{at},
+  at = ({{Subscript[A, 1], Subscript[A, 2], Subscript[A, 
+        3]}, {Subscript[B, 1], Subscript[B, 2], Subscript[B, 
+        3]}, {Subscript[C, 1], Subscript[C, 2], Subscript[C, 3]}}).
+     ({{Subscript[z, 1]}, {Subscript[z, 2]}, {w}}) + ({{Subscript[P, 
+       1]}, {Subscript[P, 2]}, {q}});
+  at = at /. transformSubstitutions;
+  Expand@at
+  ]
 \end{lstlisting}
 
 \end{document}
