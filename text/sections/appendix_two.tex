@@ -3,10 +3,10 @@
 
 \begin{document}
 
-В данном приложении представлен листинг написанной программы по получению описанной системы линейных уравнений на языке {\ttfamily Wolfram Language}. 
+В данном приложении представлен листинги процедур, реализующие этапы представленного в пункте 3 алгоритма решения задачи. Для написания программ использовался язык {\ttfamily Wolfram Language}. 
 
 \begin{lstlisting}
-(*% Применяет аффинное преобразование к полученной поверхности %*)
+(*% Применяет аффинное преобразование к поверхности sruface %*)
 TransformSurface[surface_] :=
  Module[{s = surface, st, tr = CreateTransform[]},
   st = s /. {Subscript[x, 1] -> ComplexExpand@Re@Subscript[Z, 1]@tr, 
@@ -45,7 +45,7 @@ PrintMatrix[matrix_] :=
 \end{lstlisting}
 
 \begin{lstlisting}
-(*%  %*)
+(*% Обнуляет столбец ниже элемента (row, row) в матрице %*)
 MatrixReduceRow[matrix_, row_] :=
  Module[{m = matrix, r = row},
   m = # - #[[row]]*matrix[[row]]/matrix[[row, row]] & /@ 

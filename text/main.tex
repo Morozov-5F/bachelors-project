@@ -65,36 +65,10 @@ keywordstyle=\textbf,
 texcl=true,
 }
 
+\renewcommand{\thepage}{\upshape\arabic{page}}
 \usepackage{csquotes}
-%\usepackage[
-%	style=gost-numeric,
-%	bibencoding=utf8,
-%	language=auto,
-%	autolang=other,
-%	sorting=none,
-%	backend=biber,
-%	bibencoding=utf8,
-%	isbn=false,
-%	sortcites=true,
-%	clearlang=true,
-%	language=autobib,
-%	defernumbers=true,
-%]{biblatex}
-%\addbibresource{../bib_files/bibliography.bib}
-
 \numberwithin{equation}{section}
 \usepackage{subfiles}
-
-% Will Robertson's fontspec.sty can be used to simplify font choices.
-% To experiment, open /Applications/Font Book to examine the fonts provided on Mac OS X,
-% and change "Hoefler Text" to any of these choices.
-%\setromanfont[Mapping=tex-text]{Times New Roman}
-%\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Gill Sans}
-%\setmonofont[Scale=MatchLowercase]{Courier New}
-
-%\title{Brief Article}
-%\author{The Author}
-%\date{}                                      % Activate to display a given date or no date
 
 \newcommand{\RN}[1]{%
   \textup{\uppercase\expandafter{\romannumeral#1}}%
