@@ -5,15 +5,12 @@
 
 %!TEX TS-program = xelatex
 %!TEX encoding = UTF-8 Unicode
-
-
 \documentclass[a4paper,14pt]{extarticle}
 \usepackage{geometry}
 \geometry{a4paper}                   % ... or a4paper or a5paper or ...
 %\geometry{landscape}                % Activate for for rotated page geometry
 \setlength{\parindent}{15mm}
 %\renewcommand{\baselinestretch}{1.5}
-%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
 \usepackage{graphicx}
 \usepackage{amsmath, amssymb, amsthm, mathtools}
 \newtheorem{proposal}{Предложение}
@@ -32,11 +29,12 @@
 \renewcommand{\appendixname}{Приложение}
 
 \defaultfontfeatures{Mapping=tex-text}
+%\setmainfont{Times New Roman}
 \setmainfont{CMU Serif}
-\setsansfont{CMU Sans Serif}
+%\setsansfont{CMU Sans Serif}
 \setmonofont{CMU Typewriter Text}
+%\usepackage{newtxmath}
 
-%\usepackage[english, russian]{babel}
 \usepackage{polyglossia}
 \setmainlanguage{russian}
 \setotherlanguage{english}
@@ -48,8 +46,10 @@
 \usepackage{setspace}
 \onehalfspacing
 \usepackage{titlesec}
+
+
 \titleformat*{\section}{\Large\bfseries\centering}
-\titleformat*{\subsection}{\large\bfseries\centering}
+%\titleformat*{\subsection}{\large\bfseries\centering}
 
 \usepackage{listings} 
 \lstset{ 
