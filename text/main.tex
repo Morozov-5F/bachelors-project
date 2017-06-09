@@ -68,7 +68,7 @@ basicstyle=\small\ttfamily,
 keywordstyle=\textbf,
 texcl=true,
 }
-\renewcommand{\refname}{Список использованных источников}
+\addto\captionsrussian{\def\refname{Список использованных источников}}
 \renewcommand{\thepage}{{\normalsize\textrm{\upshape\arabic{page}}}}
 \usepackage{csquotes}
 \numberwithin{equation}{section}
@@ -81,7 +81,8 @@ texcl=true,
 \makeatletter 
 \renewcommand\@biblabel[1]{#1} 
 \makeatother
-\usepackage[lastpage,user]{zref}
+
+\usepackage[lastpage,user]{zref}
 \usepackage{totcount}
 \newtotcounter{citnum} %From the package documentation
 \def\oldbibitem{} \let\oldbibitem=\bibitem
@@ -147,7 +148,7 @@ texcl=true,
 
 %%% СПИСОК ЛИТЕРАТУРЫ
 \newpage
-\addto\captionsrussian{\def\refname{Список использованных источников}}
+\addcontentsline{toc}{section}{Список использованных источников}
 \bibliography{../bib_files/bibliography}
 \bibliographystyle{ugost2003}
 
