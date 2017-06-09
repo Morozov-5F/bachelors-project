@@ -23,17 +23,22 @@
 \usepackage{tocloft}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 %\defaultfontfeatures{Ligatures=TeX}
-
+\makeatletter
+\newcommand\thefontsize[1]{{#1 The current font size is: \f@size pt\par}}
+\makeatother
 \usepackage[titletoc, title]{appendix}
 \renewcommand{\appendixtocname}{Приложения}
 \renewcommand{\appendixname}{Приложение}
 
 \defaultfontfeatures{Mapping=tex-text}
-%\setmainfont{Times New Roman}
-\setmainfont{CMU Serif}
-%\setsansfont{CMU Sans Serif}
-\setmonofont{CMU Typewriter Text}
-%\usepackage{newtxmath}
+\setmainfont{Times New Roman}
+%\setmainfont{CMU Serif}
+\newfontfamily{\cyrillicfontsf}{Arial}
+\setsansfont{Helvetica}
+\newfontfamily{\cyrillicfonttt}{Courier New}
+\setmonofont{Courier New}
+%\setmonofont{CMU Typewriter Text}
+\usepackage{newtxmath}
 
 \usepackage{polyglossia}
 \setmainlanguage{russian}
@@ -47,14 +52,13 @@
 \onehalfspacing
 \usepackage{titlesec}
 
-
-\titleformat*{\section}{\Large\bfseries\centering}
-%\titleformat*{\subsection}{\large\bfseries\centering}
+\titleformat{\section}[block]{\normalsize\bfseries\centering}{\thesection}{1ex}{}
+\titleformat{\subsection}[block]{\normalsize\bfseries}{\thesubsection}{1ex}{}
 
 \usepackage{listings} 
 \lstset{ 
 language=[5.2]Mathematica, 
-morekeywords={Solve, Evaluate}, 
+morekeywords={Solve, Evaluate, Function, Print}, 
 breaklines=true, 
 extendedchars=\true, 
 inputencoding=utf8, 
@@ -64,8 +68,8 @@ basicstyle=\small\ttfamily,
 keywordstyle=\textbf,
 texcl=true,
 }
-
-\renewcommand{\thepage}{\upshape\arabic{page}}
+\renewcommand{\refname}{Список использованных источников}
+\renewcommand{\thepage}{{\normalsize\textrm{\upshape\arabic{page}}}}
 \usepackage{csquotes}
 \numberwithin{equation}{section}
 \usepackage{subfiles}
@@ -74,21 +78,44 @@ texcl=true,
   \textup{\uppercase\expandafter{\romannumeral#1}}%
 }
 
+\makeatletter 
+\renewcommand\@biblabel[1]{#1} 
+\makeatother
+\usepackage[lastpage,user]{zref}
+\usepackage{totcount}
+\newtotcounter{citnum} %From the package documentation
+\def\oldbibitem{} \let\oldbibitem=\bibitem
+\def\bibitem{\stepcounter{citnum}\oldbibitem}
+
+\usepackage{tocloft}
+
+\cftsetindents{section}{0em}{2em}
+\cftsetindents{subsection}{0em}{2em}
+
+\renewcommand\cfttoctitlefont{\hfill\normalsize\bfseries}
+\renewcommand\cftaftertoctitle{\hfill\mbox{}}
+
+\usepackage{array}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+\newtotcounter{totalappendices}
+
 \begin{document}
-\newgeometry{margin=2cm}
+
+\newgeometry{left=3cm, right=1cm, top=2cm, bottom=2cm}
+
 \begin{titlepage}
 \subfile{sections/titlepage}
 \end{titlepage}
-
+\newgeometry{left=2cm, right=1cm, top=2cm, bottom=2cm}
 %% ЗАДАНИЕ НА ВЫПОЛНЕНИЕ
 \newpage\thispagestyle{empty}
 \addtocounter{page}{1}
 \subfile{sections/useless_page}
 
 %% РЕФЕРАТ
-\subfile{sections/abstract}
-
 \newgeometry{top=15mm, left=30mm, right=15mm, bottom=20mm}
+\subfile{sections/abstract}
 \tableofcontents
 %\maketitle
 
@@ -120,7 +147,7 @@ texcl=true,
 
 %%% СПИСОК ЛИТЕРАТУРЫ
 \newpage
-\addcontentsline{toc}{section}{Список использованных источников}
+\addto\captionsrussian{\def\refname{Список использованных источников}}
 \bibliography{../bib_files/bibliography}
 \bibliographystyle{ugost2003}
 
@@ -128,7 +155,7 @@ texcl=true,
 \begin{appendices}
 \renewcommand{\thesection}{\Asbuk{section}}
 \titleformat{\section}[display]
-    {\centering\normalfont\Large\bfseries}{\appendixname\enspace\thesection}{.5em}{}
+    {\normalfont\bfseries}{\addtocounter{totalappendices}{1}\appendixname\enspace\centering\thesection}{.5em}{}
 \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 
 \section{Используемые выражения}

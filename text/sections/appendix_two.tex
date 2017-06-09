@@ -5,26 +5,43 @@
 
 В данном приложении представлен листинги процедур, реализующие этапы представленного в пункте 3 алгоритма решения задачи. Для написания программ использовался язык {\ttfamily Wolfram Language}. 
 
-\begin{lstlisting}
-(*% Применяет аффинное преобразование к поверхности sruface %*)
-TransformSurface[surface_] :=
- Module[{s = surface, st, tr = CreateTransform[]},
+\subsection{Основные функции}
+\begin{lstlisting}      
+(* %Применяет аффинное преобразование к поверхности% *)
+TransformSurface[surface_, transform_] :=
+ Module[{s = surface, st, tr = transform},
   st = s /. {Subscript[x, 1] -> ComplexExpand@Re@Subscript[Z, 1]@tr, 
      Subscript[y, 1] -> ComplexExpand@Im@Subscript[Z, 1]@tr,
      	Subscript[x, 2] -> ComplexExpand@Re@Subscript[Z, 2]@tr, 
      Subscript[y, 2] -> ComplexExpand@Im@Subscript[Z, 2]@tr,
      u -> ComplexExpand@Re@W@tr, v -> ComplexExpand@Im@W@tr};
-  Evaluate@st
+  st
   ]
-\end{lstlisting}
-
-\begin{lstlisting}
-(*% Приводит матрицу к ступенчатому виду, принимая в расчет, что переменные variables не являются нулевыми %*)
+  
+(* % Получает систему линейных уравнений на коэффициенты инфинитезимального преобразования % *)
+GetSystem[surface_] :=
+  Module[{s = surface, 
+    system = {}, \[CapitalPhi] = Subtract @@ surface, ts, vars = {}},
+   vars = {Subscript[x, 1], Subscript[x, 2], Subscript[y, 1], 
+     Subscript[y, 2], u, v};
+   ts = TransformSurface[\[CapitalPhi], CreateTransform[]] /. 
+     parameterSubstitutions;
+   ts = D[ts, t] /. t -> 0 /. diffSubstitution;
+   ts = Simplify[(ts /. Solve[s, v][[1]])];
+   ts *= Denominator@Simplify@ts;
+   system = 
+    Times @@ (vars^#[[1]]) -> #[[2]] & /@ CoefficientRules[ts, vars];
+   system = DeleteCases[system[[All, 2]], 0];
+   system
+   ];
+   
+(*% Приводит матрицу к ступенчатому виду с учетом предположений %*)
 AdaptiveElmination[matrix_, variables_] :=
   Module[{m = matrix, perms = {}, dim = Dimensions@matrix,
-    h = Dimensions@matrix[[1]], w = Dimensions@matrix[[2]],
-    vars = Flatten@{variables}, pattern, pos, i},
-   pattern = Except[0, _Integer | _?(Variables@# === vars &)];
+    h = Dimensions@matrix[[1]], w = Dimensions@matrix[[2]], pos, i,
+    vars = Flatten@{variables}, pattern},
+   pattern = Except[0,
+     _Integer | _?(Variables@# === vars &)];
    For[i = 1, i < Min[w, h], i++,
     pos = Flatten@Position[m[[i ;;, i ;;]], pattern, 2, 1];
     If[pos === {}, Break[], pos += {i - 1, i - 1}];
@@ -34,28 +51,60 @@ AdaptiveElmination[matrix_, variables_] :=
     ];
    m
    ];
+   
+(*%  Получает инфинитезимальные преобразования на основе системы %*)
+GetInfinitesimalTransforms[system_] :=
+  Module[{s = system, ta = {}, vars = {}, basis = {}, sol, itm = {}, 
+    subs = {}},
+   vars = 
+    Sort@Flatten@
+      Table[{Subscript[\[Alpha], i, j], Subscript[\[Beta], i, j], 
+        Subscript[\[Gamma], i, j], Subscript[\[Sigma], i, j]}, {i, 1, 
+        3}, {j, 1, 2}];
+   itm = {Append[
+      Table[Subscript[\[Alpha], i, 1] + 
+        I*Subscript[\[Alpha], i, 2], {i, 1, 3}], 
+      Subscript[\[Sigma], 1, 1] + I*Subscript[\[Sigma], 1, 2]], 
+     Append[Table[
+       Subscript[\[Beta], i, 1] + I*Subscript[\[Beta], i, 2], {i, 1, 
+        3}], Subscript[\[Sigma], 2, 1] + I*Subscript[\[Sigma], 2, 2]],
+      Append[Table[
+       Subscript[\[Gamma], i, 1] + I*Subscript[\[Gamma], i, 2], {i, 1,
+         3}], Subscript[\[Sigma], 3, 1] + I*Subscript[\[Sigma], 3, 2]],
+     {0, 0, 0, 0}};
+   sol = Solve[#1 == 0 & /@ reducedSystem, vars];
+   ta = itm /. sol[[1]];
+   vars = Intersection[Variables@ta, vars];
+   subs = 
+    Sort@Flatten[{vars[[#]] -> 1, 
+         Function[e, e -> 0] /@ 
+          Complement[vars, {vars[[#]]}]}] & /@ (Range @@ 
+       Dimensions@vars);
+   ta = ta /. # & /@ subs;
+   ta
+   ];
+
+(*% Интегрирует инфинитезимальные преобразования для получения однопараметрических групп %*)
+IntegrateTransforms[transforms_List] :=
+  Module[{tr = transforms, affine = {}},
+   affine = MatrixExp[t*#] & /@ tr;
+   affine
+   ];
+
+(*% Проверяет факт сохранения поверхности группой %*)
+CheckPreservation[surface_, transform_] :=
+  Module[{s = surface, t, ts},
+   t = transform.{{Subscript[x, 1] + I*Subscript[y, 1]}, {Subscript[x,
+         2] + I*Subscript[y, 2]}, {u + I*v}, {1}};
+   ts = Subtract @@ (FullSimplify@TransformSurface[s, t]);
+   NumberQ[FullSimplify[(Subtract @@ s)/ts]]
+   ];
 \end{lstlisting}
 
-\begin{lstlisting}
-(*% Печатает матрицу с номерами столбцов и строк %*)
-PrintMatrix[matrix_] :=
- Module[{m = matrix, dim = Dimensions@matrix},
-  MatrixForm[m, TableHeadings -> {Range@dim[[1]], Range@dim[[2]]}]
-  ]
-\end{lstlisting}
+\subsection{Вспомогательные функции}
 
-\begin{lstlisting}
-(*% Обнуляет столбец ниже элемента (row, row) в матрице %*)
-MatrixReduceRow[matrix_, row_] :=
- Module[{m = matrix, r = row},
-  m = # - #[[row]]*matrix[[row]]/matrix[[row, row]] & /@ 
-    matrix[[row + 1 ;;]];
-  m
-  ]
-\end{lstlisting}
-
-\begin{lstlisting}
-(*% Создает матрицу аффинного преобразования в C3 %*)
+\begin{lstlisting}   
+(*% Создает матрицу произвольного аффинного преобразования %*)
 CreateTransform[] :=
  Module[{at},
   at = ({{Subscript[A, 1], Subscript[A, 2], Subscript[A, 
@@ -66,6 +115,92 @@ CreateTransform[] :=
   at = at /. transformSubstitutions;
   Expand@at
   ]
+  
+(*% Печатает матрицу с нумерацией строк и столбцов %*)
+PrintMatrix[matrix_] :=
+ Module[{m = matrix, dim = Dimensions@matrix},
+  MatrixForm[m, TableHeadings -> {Range@dim[[1]], Range@dim[[2]]}]
+  ]
+  
+(*% Меняет местами столбцы в матрице %*)
+SwapRows[matrix_, from_List, to_List] := 
+  Module[{m = matrix, f = from, t = to},
+   m[[Flatten@{f, t}]] = m[[Flatten@{t, f}]];
+   m
+   ];
+   
+(*% Меняет местами столбцы в матрице %*)
+SwapColumns[matrix_, from_List, to_List] := 
+  Module[{m = matrix, f = from, t = to},
+   m[[All, Flatten@{f, t}]] = m[[All, Flatten@{t, f}]];
+   m
+   ];
+   
+(* %Приводит указанный столбец матрицы к нулевоу виду, начиная со \
+строки с номером row %*)
+MatrixReduceRow[matrix_, row_] :=
+ Module[{m = matrix, r = row},
+  m = # - #[[row]]*matrix[[row]]/matrix[[row, row]] & /@ 
+    matrix[[row + 1 ;;]];
+  m
+  ]
+\end{lstlisting}
+
+\subsection{Пример использования функций}
+Листинг программы для получению размерности группы аффинных преобразований и вида этих преобразований для поверхности~(\ref{eq:special_5}):
+\begin{lstlisting}
+S = v*Subscript[x, 2] == 
+   Subscript[x, 1]^2 + 
+    Subscript[x, 
+     2]*(\[Mu]*Subscript[x, 2]^2 + \[Nu]*Subscript[y, 2]^2);
+system = GetSystem[S];
+matrix = Normal@CoefficientArrays[system, variables][[2]];
+Print["Количество уравнений в системе: ", Length@system];
+Print["Максимальный ранг матрицы: ", MatrixRank@matrix];
+ITs = GetInfinitesimalTransforms[system];
+Print["Размерность группы: ", Length@ITs];
+Print@"Инфинитезимальные преобразования:";
+PrintMatrix /@ ITs
+groups = IntegrateTransforms@ITs;
+Print@"Однопараметрические группы:"
+PrintMatrix /@ groups
+CheckPreservation[S, #] & /@ groups
+\end{lstlisting}
+Дополнительные переменные, которые использовались в функциях:
+\begin{lstlisting}
+(* % Подстановки для общего аффинного преобразования % *)
+transformSubstitutions = 
+  Flatten[{Table[{Subscript[A, i] -> 
+       Subscript[a, i, 1] + I * Subscript[a, i, 2], 
+      Subscript[B, i] -> Subscript[b, i, 1] + I * Subscript[b, i, 2], 
+      Subscript[C, i] -> 
+       Subscript[c, i, 1] + I * Subscript[c, i, 2]}, {i, 1, 3}], 
+    Subscript[z, 1] -> Subscript[x, 1] + I*Subscript[y, 1], 
+    Subscript[z, 2] -> Subscript[x, 2] + I*Subscript[y, 2], 
+    w -> u + I*v, 
+    Subscript[P, 1] -> Subscript[p, 1, 1] + I*Subscript[p, 1, 2], 
+    Subscript[P, 2] -> Subscript[p, 2, 1] + I*Subscript[p, 2, 2], 
+    q -> Subscript[q, 1] + I*Subscript[q, 2]}];
+    
+(* % Подстановки для параметров % *)
+parameterSubstitutions = 
+  Flatten[{Table[{Subscript[a, i, j] -> Subscript[a, i, j][t], 
+      Subscript[b, i, j] -> Subscript[b, i, j][t], 
+      Subscript[c, i, j] -> Subscript[c, i, j][t]}, {i, 1, 3}, {j, 1, 
+      2}], Table[
+     Subscript[p, i, j ] -> Subscript[p, i, j][t], {i, 1, 2}, {j, 1, 
+      2}], Subscript[q, 1] -> Subscript[q, 1][t], 
+    Subscript[q, 2] -> Subscript[q, 2][t]}]; 
+    
+(* % Подстановки для параметров после дифференцирования % *)
+diffSubstitution = 
+  Flatten[{Table[{Subscript[a, i, j]'[0] -> Subscript[\[Alpha], i, 
+       j], Subscript[b, i, j]'[0] -> Subscript[\[Beta], i, j], 
+      Subscript[c, i, j]'[0] -> Subscript[\[Gamma], i, j]}, {i, 1, 
+      3}, {j, 1, 2}], 
+    Table[Subscript[p, i, j]'[0] -> Subscript[\[Sigma], i, j], {i, 1, 
+      2}, {j, 1, 2}], {Subscript[q, 1]'[0] -> Subscript[\[Sigma], 3, 
+      1], Subscript[q, 2]'[0] -> Subscript[\[Sigma], 3, 2]}}];
 \end{lstlisting}
 
 \end{document}
